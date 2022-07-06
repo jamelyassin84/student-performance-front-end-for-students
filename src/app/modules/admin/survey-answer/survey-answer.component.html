@@ -1,8 +1,321 @@
-<div class="flex flex-col w-full">
+<div class="flex flex-col w-full bg-white">
 	<page-header
 		class="w-full"
 		pageTitle="Answer a Survey"
 		subtitle="Please fill up the survey form for us to predict your academic performance results. It may help other students to predict theirs."
 		icon="mat_outline:drive_file_rename_outline"
 	></page-header>
+
+	<div class="grid grid-cols-5 items-center gap-10 p-10">
+		<mat-form-field class="w-full">
+			<mat-label>Year Level</mat-label>
+
+			<mat-select>
+				<mat-option *ngFor="let item of YEAR_LEVELS; trackBy: identity">{{
+					item
+				}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field class="w-full">
+			<mat-label>Last Semester Enrolled</mat-label>
+
+			<mat-select>
+				<mat-option *ngFor="let item of SEMESTERS; trackBy: identity">{{
+					item
+				}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field class="w-full">
+			<mat-label>Your Grade (1-100)</mat-label>
+
+			<input type="number" matInput />
+		</mat-form-field>
+	</div>
+
+	<div
+		[class.hidden]="currentForm !== 'gritScaleIndex'"
+		class="grid grid-cols-2 items-center p-10"
+		style="min-height: 79vh"
+	>
+		<div class="col-span-2 text-4xl font-extrabold">Grit Scale Questions</div>
+
+		<div class="col-span-1">
+			<div
+				[class.hidden]="i !== gritScaleIndex"
+				class="bg-white shadow-2xl shadow-blue-50 my-10 border border-gray-200 rounded-md p-5 py-10 flex flex-col"
+				*ngFor="let item of GRIT_SCALE; trackBy: identity; let i = index"
+			>
+				<div class="text-lg font-bold flex items-center text-gray-700">
+					<mat-icon class="mr-2" svgIcon="info"></mat-icon>
+					{{ item.question }}
+				</div>
+
+				<div class="grid grid-cols-3 gap-10 mt-10">
+					<button
+						[ngClass]="{
+							'bg-yellow-500 text-white': includesFormIndex(
+								'gritScaleIndex',
+								formIndex
+							),
+							'border-gray-300 text-gray-500': !includesFormIndex(
+								'gritScaleIndex',
+								formIndex
+							)
+						}"
+						*ngFor="
+							let rating of item.form;
+							trackBy: identity;
+							let formIndex = index
+						"
+						(click)="
+							setScore('gritScaleIndex', i, {
+								index: formIndex,
+								rating: formIndex + 1
+							})
+						"
+						ngClass=""
+						class="border text-sm p-5 hover:bg-yellow-500 hover:text-white hover:border-transparent"
+					>
+						{{ rating }}
+					</button>
+				</div>
+
+				<div class="flex">
+					<button
+						*ngIf="gritScaleIndex !== 0"
+						(click)="onBack('gritScaleIndex')"
+						class="mt-10 ml-auto font-extrabold px-10 py-3 flex items-center hover:bg-gray-50 border"
+					>
+						Back
+
+						<mat-icon
+							class="ml-2 text-white"
+							svgIcon="arrow_right_alt"
+						></mat-icon>
+					</button>
+
+					<button
+						[ngClass]="{
+							'ml-2': gritScaleIndex !== 0,
+							'ml-auto': gritScaleIndex === 0
+						}"
+						(click)="onNext('gritScaleIndex', GRIT_SCALE)"
+						class="mt-10 font-extrabold bg-blue-800 text-white px-10 py-3 flex items-center hover:bg-blue-900"
+					>
+						Next
+
+						<mat-icon
+							class="ml-2 text-white"
+							svgIcon="arrow_right_alt"
+						></mat-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<img
+				class="w-full object-contain"
+				style="max-height: 50vh"
+				src="../../../../assets/app/survey-form/grit.svg"
+				alt="grit image"
+			/>
+		</div>
+	</div>
+
+	<div
+		[class.hidden]="currentForm !== 'timeManageMentIndex'"
+		class="grid grid-cols-2 items-center p-10"
+		style="min-height: 79vh"
+	>
+		<div class="col-span-2 text-4xl font-extrabold">
+			Time Management Questions
+		</div>
+
+		<div class="col-span-1">
+			<div
+				[class.hidden]="i !== timeManageMentIndex"
+				class="bg-white shadow-2xl shadow-blue-50 my-10 border border-gray-200 rounded-md p-5 py-10 flex flex-col"
+				*ngFor="
+					let item of TIME_MANAGEMENT_QUESTIONS;
+					trackBy: identity;
+					let i = index
+				"
+			>
+				<div class="text-lg font-bold flex items-center text-gray-700">
+					<mat-icon class="mr-2" svgIcon="info"></mat-icon>
+					{{ item.question }}
+				</div>
+
+				<div class="grid grid-cols-3 gap-10 mt-10">
+					<button
+						[ngClass]="{
+							'bg-yellow-500 text-white': includesFormIndex(
+								'timeManageMentIndex',
+								formIndex
+							),
+							'border-gray-300 text-gray-500': !includesFormIndex(
+								'timeManageMentIndex',
+								formIndex
+							)
+						}"
+						*ngFor="
+							let rating of item.form;
+							trackBy: identity;
+							let formIndex = index
+						"
+						(click)="
+							setScore('timeManageMentIndex', i, {
+								index: formIndex,
+								rating: formIndex + 1
+							})
+						"
+						ngClass=""
+						class="border text-sm p-5 hover:bg-yellow-500 hover:text-white hover:border-transparent"
+					>
+						{{ rating }}
+					</button>
+				</div>
+
+				<div class="flex">
+					<button
+						*ngIf="timeManageMentIndex !== 0"
+						(click)="onBack('timeManageMentIndex')"
+						class="mt-10 ml-auto font-extrabold px-10 py-3 flex items-center hover:bg-gray-50 border"
+					>
+						Back
+
+						<mat-icon
+							class="ml-2 text-white"
+							svgIcon="arrow_right_alt"
+						></mat-icon>
+					</button>
+
+					<button
+						[ngClass]="{
+							'ml-2': timeManageMentIndex !== 0,
+							'ml-auto': timeManageMentIndex === 0
+						}"
+						(click)="onNext('timeManageMentIndex', TIME_MANAGEMENT_QUESTIONS)"
+						class="mt-10 font-extrabold bg-blue-800 text-white px-10 py-3 flex items-center hover:bg-blue-900"
+					>
+						Next
+
+						<mat-icon
+							class="ml-2 text-white"
+							svgIcon="arrow_right_alt"
+						></mat-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<img
+				class="w-full object-contain"
+				style="max-height: 50vh"
+				src="../../../../assets/app/survey-form/time-management.svg"
+				alt="grit image"
+			/>
+		</div>
+	</div>
+
+	<div
+		[class.hidden]="currentForm !== 'selfRegulationIndex'"
+		class="grid grid-cols-2 items-center p-10"
+		style="min-height: 79vh"
+	>
+		<div class="col-span-2 text-4xl font-extrabold">
+			Self Regulation Questions
+		</div>
+
+		<div class="col-span-1">
+			<div
+				[class.hidden]="i !== selfRegulationIndex"
+				class="bg-white shadow-2xl shadow-blue-50 my-10 border border-gray-200 rounded-md p-5 py-10 flex flex-col"
+				*ngFor="
+					let item of SELF_REGULATION_QUESTIONS;
+					trackBy: identity;
+					let i = index
+				"
+			>
+				<div class="text-lg font-bold flex items-center text-gray-700">
+					<mat-icon class="mr-2" svgIcon="info"></mat-icon>
+					{{ item.question }}
+				</div>
+
+				<div class="grid grid-cols-3 gap-10 mt-10">
+					<button
+						[ngClass]="{
+							'bg-yellow-500 text-white': includesFormIndex(
+								'selfRegulationIndex',
+								formIndex
+							),
+							'border-gray-300 text-gray-500': !includesFormIndex(
+								'selfRegulationIndex',
+								formIndex
+							)
+						}"
+						*ngFor="
+							let rating of item.form;
+							trackBy: identity;
+							let formIndex = index
+						"
+						(click)="
+							setScore('selfRegulationIndex', i, {
+								index: formIndex,
+								rating: formIndex + 1
+							})
+						"
+						ngClass=""
+						class="border text-sm p-5 hover:bg-yellow-500 hover:text-white hover:border-transparent"
+					>
+						{{ rating }}
+					</button>
+				</div>
+
+				<div class="flex">
+					<button
+						*ngIf="selfRegulationIndex !== 0"
+						(click)="onBack('selfRegulationIndex')"
+						class="mt-10 ml-auto font-extrabold px-10 py-3 flex items-center hover:bg-gray-50 border"
+					>
+						Back
+
+						<mat-icon
+							class="ml-2 text-white"
+							svgIcon="arrow_right_alt"
+						></mat-icon>
+					</button>
+
+					<button
+						[ngClass]="{
+							'ml-2': selfRegulationIndex !== 0,
+							'ml-auto': selfRegulationIndex === 0
+						}"
+						(click)="onNext('selfRegulationIndex', SELF_REGULATION_QUESTIONS)"
+						class="mt-10 font-extrabold bg-blue-800 text-white px-10 py-3 flex items-center hover:bg-blue-900"
+					>
+						Next
+
+						<mat-icon
+							class="ml-2 text-white"
+							svgIcon="arrow_right_alt"
+						></mat-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<img
+				class="w-full object-contain"
+				style="max-height: 50vh"
+				src="../../../../assets/app/survey-form/self-regulation.svg"
+				alt="grit image"
+			/>
+		</div>
+	</div>
 </div>
