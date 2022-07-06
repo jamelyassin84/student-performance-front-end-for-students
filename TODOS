@@ -1,0 +1,67 @@
+Student Registration
+	Email 
+	Name
+	Department
+	Course
+	Address
+	Photo
+	Password
+	Confirm Password
+
+Student Login
+
+Student Dashboard
+
+Answer Survey
+	Year
+	Last Semester Enrolled
+	Grade
+	
+	Survey From
+	
+View Survey Results	
+	Year 
+	Semester
+	Result Survey
+
+Dashboard
+	Chart performance results year and semester
+
+	*Predict student grades
+
+View Recommendations
+	Study Hard
+
+	
+
+
+----------------
+
+Admin
+
+Login
+
+List of Students
+	View Particular Student
+		Delete 
+		Update
+		Year and Semester
+			Performance
+Customize Survey Form
+	Title, Description, enable or disable,
+
+Dashboard
+	Top Performing Students- Sort by course, department, range sang grade
+	
+	Best Psychometric perfomance based on top students
+
+	Candidate for best performing student using psychometric behaviors
+
+
+	
+
+
+
+
+	
+	
