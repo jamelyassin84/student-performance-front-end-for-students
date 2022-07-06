@@ -42,22 +42,37 @@ export class SurveyAnswerComponent implements OnInit {
 
 	setScore(type: SurveyForms, index: number, score: Score) {
 		this[`${type}Score`].splice(index, 1, score)
-
-		console.log(this[`${type}Score`])
 	}
 
 	identity = (item: any) => item
 
-	includesFormIndex(type: SurveyForms, index: number): boolean {
-		return false
+	includesFormIndex(
+		type: SurveyForms,
+		formIndex: number,
+		index: number,
+	): boolean {
+		const currentScore = this[`${type}Score`][index]
 
-		const currentScore = this[`${type}Score`].findIndex(
-			(item) => item.index === index,
-		)
+		if (
+			currentScore &&
+			formIndex === index &&
+			formIndex === currentScore.index
+		) {
+			return true
+		}
+
+		return false
 	}
 
 	onNext(type: SurveyForms, formType: SurveyForm[]) {
 		const index = survey_form_types.findIndex((form) => form === type)
+
+		if (
+			type === survey_form_types[survey_form_types.length - 1] &&
+			formType.length - 1 === this[`${type}`]
+		) {
+			alert('Form Submitted')
+		}
 
 		if (formType.length - 1 === this[`${type}`]) {
 			this.currentForm = survey_form_types[index + 1]
@@ -69,8 +84,6 @@ export class SurveyAnswerComponent implements OnInit {
 	}
 
 	onBack(type: SurveyForms) {
-		const index = survey_form_types.findIndex((form) => form === type)
-
 		this[`${type}`]--
 	}
 }

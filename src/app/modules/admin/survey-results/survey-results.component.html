@@ -1,8 +1,45 @@
-<div class="flex flex-col w-full">
+<div class="flex flex-col w-full bg-white">
 	<page-header
 		class="w-full"
 		pageTitle="Survey Results"
 		subtitle="You can see your performance here based on your psychometric performance"
 		icon="insights"
 	></page-header>
+
+	<div class="grid grid-cols-5 items-center gap-10 p-10">
+		<mat-form-field class="w-full">
+			<mat-label>Year Level</mat-label>
+
+			<mat-select>
+				<mat-option *ngFor="let item of YEAR_LEVELS; trackBy: identity">{{
+					item
+				}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field class="w-full">
+			<mat-label>Last Semester Enrolled</mat-label>
+
+			<mat-select>
+				<mat-option *ngFor="let item of SEMESTERS; trackBy: identity">{{
+					item
+				}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field class="w-full">
+			<mat-label>Your Grade (1-100)</mat-label>
+
+			<input type="number" matInput />
+		</mat-form-field>
+	</div>
+
+	<ul class="px-10">
+		<li
+			class="p-5 border-b"
+			*ngFor="let item of [1, 23, 4, 5, 56, 6, 7, 8, 9, 9]"
+		>
+			Psychometric Score: <span class="text-emerald-500 text-xl ml-5">96</span>
+		</li>
+	</ul>
 </div>

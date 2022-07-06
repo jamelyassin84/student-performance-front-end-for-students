@@ -102,27 +102,37 @@
 					/>
 				</mat-form-field>
 
-				<!-- Company field -->
 				<mat-form-field class="w-full">
-					<mat-label>Company</mat-label>
-					<input id="company-confirm" matInput [formControlName]="'company'" />
+					<mat-label>Department</mat-label>
+					<mat-select>
+						<mat-option *ngFor="let item of DEPARTMENTS; trackBy: identity">{{
+							item
+						}}</mat-option>
+					</mat-select>
 				</mat-form-field>
 
 				<mat-form-field class="w-full">
-					<mat-label>Department</mat-label>
-					<input id="company-confirm" matInput [formControlName]="'company'" />
+					<mat-label>Degree</mat-label>
+					<mat-select>
+						<mat-option *ngFor="let item of DEGREES; trackBy: identity">{{
+							item
+						}}</mat-option>
+					</mat-select>
 				</mat-form-field>
 
 				<mat-form-field class="w-full">
 					<mat-label>Course</mat-label>
-					<input id="company-confirm" matInput [formControlName]="'company'" />
+					<mat-select>
+						<mat-option *ngFor="let item of COURSES; trackBy: identity">{{
+							item
+						}}</mat-option>
+					</mat-select>
 				</mat-form-field>
 
 				<mat-form-field class="w-full">
 					<mat-label>Address</mat-label>
-					<input id="company-confirm" matInput [formControlName]="'company'" />
+					<input matInput />
 				</mat-form-field>
-
 				<!-- ToS and PP -->
 				<div class="inline-flex items-end w-full mt-1.5">
 					<mat-checkbox [color]="'primary'" [formControlName]="'agreements'">
