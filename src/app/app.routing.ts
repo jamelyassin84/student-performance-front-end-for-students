@@ -142,6 +142,13 @@ export const appRoutes: Route[] = [
 						(module) => module.SurveyAnswerModule,
 					),
 			},
+			{
+				path: 'account',
+				loadChildren: () =>
+					import(
+						'app/modules/admin/survey-account-information/survey-account-information.module'
+					).then((module) => module.SurveyAccountInformationModule),
+			},
 		],
 	},
 ]
