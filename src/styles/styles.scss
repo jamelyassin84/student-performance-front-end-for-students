@@ -2,3 +2,12 @@
 /*  @ Import/write your custom styles here.
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
+
+* {
+	font-family: Open Sans, Arial, sans-serif;
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+	stroke: white !important;
+}
