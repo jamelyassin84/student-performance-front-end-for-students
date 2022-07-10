@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { PageHeaderComponent } from 'app/components/page-header/page-header.component'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSelectModule } from '@angular/material/select'
+import { NgApexchartsModule } from 'ng-apexcharts'
 
 const components = [PageHeaderComponent]
 
@@ -28,6 +29,7 @@ const modules = [
 	FuseCardModule,
 	FuseAlertModule,
 	MatSelectModule,
+	NgApexchartsModule,
 ]
 
 const pipes = []
