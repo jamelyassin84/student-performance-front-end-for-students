@@ -97,7 +97,7 @@ export const survey_form_types: SurveyForms[] = [
 
 export type SurveyForms =
 	| 'gritScaleIndex'
-	| 'selfEfficacyIndex'
+	// | 'selfEfficacyIndex'
 	| 'timeManageMentIndex'
 	| 'selfRegulationIndex'
 

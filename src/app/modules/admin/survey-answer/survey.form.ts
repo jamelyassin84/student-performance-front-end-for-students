@@ -35,7 +35,7 @@ export const GRIT_SCALE: SurveyForm[] = [
 	},
 	{
 		name: 'Hard working',
-		question: 'I am a hard worker..',
+		question: 'I am a hard worker.',
 		form: rating,
 		type: 'positive',
 	},
@@ -126,6 +126,13 @@ export const TIME_MANAGEMENT_QUESTIONS: SurveyForm[] = [
 		type: 'positive',
 	},
 	{
+		// #added
+		name: 'Reviewing',
+		question: 'I review my planner each day after I complete my tasks. .',
+		form: rating,
+		type: 'positive',
+	},
+	{
 		name: 'Reviewing Planner',
 		question: 'I do the most important tasks at my best time during the day.',
 		form: rating,
@@ -134,6 +141,13 @@ export const TIME_MANAGEMENT_QUESTIONS: SurveyForm[] = [
 	{
 		name: 'Extreme Focus',
 		question: 'I have some time during each day when I can work uninterrupted.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		// #added
+		name: 'Extreme Motivation',
+		question: 'I do today what needs to be done. I don’t procrastinate.',
 		form: rating,
 		type: 'positive',
 	},
@@ -198,7 +212,68 @@ export const TIME_MANAGEMENT_QUESTIONS: SurveyForm[] = [
 	},
 ]
 
-export const SELF_EFFICACY: SurveyForm[] = []
+export const SELF_EFFICACY: SurveyForm[] = [
+	{
+		name: 'Managing Problems',
+		question: 'I can always manage to solve difficult problems if I try hard enough.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		name: 'Hardened',
+		question: 'If someone opposes me, I can find the means and ways to get what I want.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		name: 'Reaching Goals',
+		question: 'It is easy for me to stick to my aims and accomplish my goals.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		name: 'Extreme Confidence',
+		question: 'I am confident that I could deal efficiently with unexpected events.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		name: 'Resourceful',
+		question: 'Thanks to my resourcefulness, I know how to handle unforeseen situations.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		name: 'Time Investment',
+		question: ' I can solve most problems if I invest the necessary effort.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		name: 'Extreme Patience',
+		question: ' I can remain calm when facing difficulties because I can rely on my coping abilities.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		name: 'Mind Boggling',
+		question: ' When I am confronted with a problem, I can usually find several solutions.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		name: 'Genius',
+		question: ' If I am in trouble, I can usually think of a solution.',
+		form: rating,
+		type: 'positive',
+	},
+	{
+		name: 'Selft Trust',
+		question: 'I can usually handle whatever comes my way.',
+		form: rating,
+		type: 'positive',
+	},
+]
 
 export const SELF_REGULATION_QUESTIONS: SurveyForm[] = [
 	{
