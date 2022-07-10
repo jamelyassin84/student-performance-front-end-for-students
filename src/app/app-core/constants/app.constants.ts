@@ -48,297 +48,277 @@ export const COURSES = [
 
 export const DEPARTMENTS1 = [
 	{
-		name: 'College of Arts and Sciences', // Name of Department
+		name: 'College of Arts and Sciences',
 		degrees: [
 			{
-				name: 'Bachelor of Arts', // Name of Degree
+				name: 'Bachelor of Arts',
 				courses: [
 					{
-						name: 'Communication', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Communication',
+						majors: [],
 					},
 					{
-						name: 'English Language Studies', // Name of Course
-						majors: [], // Array of Majors
+						name: 'English Language Studies',
+						majors: [],
 					},
 					{
-						name: 'Political Science', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Political Science',
+						majors: [],
 					},
 					{
-						name: '', // Name of Course
-						majors: ['Political Science and Public Administration'], // Array of Majors
+						name: '',
+						majors: ['Political Science and Public Administration'],
 					},
 				],
 			},
 			{
-				name: 'Bachelor of Science', // Name of Degree
+				name: 'Bachelor of Science',
 				courses: [
 					{
-						name: 'Biology', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Biology',
+						majors: [],
 					},
 					{
-						name: 'Biology with specialization in Microbiology', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Biology with specialization in Microbiology',
+						majors: [],
 					},
 					{
-						name: 'Chemistry', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Chemistry',
+						majors: [],
 					},
 					{
-						name: 'Psychology', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Psychology',
+						majors: [],
 					},
 					{
-						name: 'Social Work', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Social Work',
+						majors: [],
 					},
 					{
-						name: '', // Name of Course
-						majors: [' Mathematics'], // Array of Majors
+						name: '',
+						majors: [' Mathematics'],
 					},
 				],
 			},
 		],
-
 	},
 	{
-		name: 'College of Computer Studies', // Name of Department
+		name: 'College of Computer Studies',
 		degrees: [
 			{
-				name: 'Bachelor of Science', // Name of Degree
+				name: 'Bachelor of Science',
 				courses: [
 					{
-						name: 'Computer Science', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Computer Science',
+						majors: [],
 					},
 					{
-						name: 'Digital Media and Interactive Arts', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Digital Media and Interactive Arts',
+						majors: [],
 					},
 					{
-						name: 'Information Technology', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Information Technology',
+						majors: [],
 					},
 					{
-						name: ' Library and Information Science', // Name of Course
-						majors: [], // Array of Majors
+						name: ' Library and Information Science',
+						majors: [],
 					},
-				]
-			}
-		]
+				],
+			},
+		],
 	},
 	{
-		name: 'College of Nursing', // Name of Department
+		name: 'College of Nursing',
 		degrees: [
 			{
-				name: 'Bachelor of Science', // Name of Degree
+				name: 'Bachelor of Science',
 				courses: [
 					{
-						name: 'Nursing', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Nursing',
+						majors: [],
 					},
-				]
-			}
-		]
+				],
+			},
+		],
 	},
 	{
-		name: 'College of Business and Accountancy', // Name of Department
+		name: 'College of Business and Accountancy',
 		degrees: [
 			{
-				name: 'Bachelor of Science', // Name of Degree
+				name: 'Bachelor of Science',
 				courses: [
 					{
-						name: 'Accountancy', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Accountancy',
+						majors: [],
 					},
 					{
-						name: 'Advertising', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Advertising',
+						majors: [],
 					},
 					{
-						name: 'Business Administration major in', // Name of Course
-						majors: ['Business Management','Financial Management','Marketing Management','Entrepreneurship','Management Accounting'], // Array of Majors
+						name: 'Business Administration major in',
+						majors: [
+							'Business Management',
+							'Financial Management',
+							'Marketing Management',
+							'Entrepreneurship',
+							'Management Accounting',
+						],
 					},
-				]
-			}
-		]
+				],
+			},
+		],
 	},
 	{
 		name: 'College of Education', // Name of Deapartment
 		degrees: [
 			{
-				name: 'Bachelor of ', // Name of Degree
+				name: 'Bachelor of ',
 				courses: [
 					{
-						name: 'Early Childhood Education', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Early Childhood Education',
+						majors: [],
 					},
 					{
-						name: 'Elementary Education', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Elementary Education',
+						majors: [],
 					},
 					{
-						name: 'Physical Education', // Name of Course
-						majors: [], // Array of Majors
+						name: 'Physical Education',
+						majors: [],
 					},
 					{
-						name: 'Secondary Education, majors in: ', // Name of Course
-						majors: ['English','Filipino','Mathematics','Science','Special Needs Education','Bachelor in Sports Match Analysis'], // Array of Majors
+						name: 'Secondary Education, majors in: ',
+						majors: [
+							'English',
+							'Filipino',
+							'Mathematics',
+							'Science',
+							'Special Needs Education',
+							'Bachelor in Sports Match Analysis',
+						],
 					},
-				]
-			}
-		]
-	},
-	{
-		name: 'College of Engineering', // Name of Department
-		degrees: [
-			{
-				name: 'Bachelor of Science', // Name of Degree
-				courses: [
-					{
-						name: 'Chemical Engineering', // Name of Course
-						majors: [], // Array of Majors
-					},
-					{
-						name: 'Civil Engineering', // Name of Course
-						majors: [], // Array of Majors
-					},
-					{
-						name: 'Electrical Engineering', // Name of Course
-						majors: [], // Array of Majors
-					},
-					{
-						name: 'Electronics Engineering', // Name of Course
-						majors: [], // Array of Majors
-					},
-					{
-						name: 'Mechanical Engineering', // Name of Course
-						majors: [], // Array of Majors
-					},
-					{
-						name: 'Packaging Engineering', // Name of Course
-						majors: [], // Array of Majors
-					},
-					{
-						name: 'Software Engineering', // Name of Course
-						majors: [], // Array of Majors
-					},
-				]
-			}
-		]
-	},
-	{
-		name: 'College of Hospitality Management', // Name of Department
-		degrees: [
-			{
-				name: 'Bachelor of Science', // Name of Degree
-				courses: [
-					{
-						name: 'Hospitality Management', // Name of Course
-						majors: [], // Array of Majors
-					},
-					{
-						name: 'Tourism Management', // Name of Course
-						majors: [], // Array of Majors
-					},
-				]
-			}
-		]
-	},
-	{
-		name: 'College of Medical Laboratory', // Name of Department
-		degrees: [
-			{
-				name: 'Bachelor of Science', // Name of Degree
-				courses: [
-					{
-						name: 'Medical Laboratory Sciences', // Name of Course
-						majors: [], // Array of Majors
-					},
-				]
-			}
-		]
-	},
-	{
-		name: 'College of Pharmacy', // Name of Department
-		degrees: [
-			{
-				name: 'Bachelor of Science', // Name of Degree
-				courses: [
-					{
-						name: 'Pharmacy', // Name of Course
-						majors: [], // Array of Majors
-					},
-				]
-			}
-		]
-	},
-	{
-		name: 'College of Medicine', // Name of Department
-		degrees: [
-			{
-				name: 'Bachelor of Science', // Name of Degree
-				courses: [
-					{
-						name: 'Health, Fitness and Lifestyle Management', // Name of Course
-						majors: [], // Array of Majors
-					},
-					{
-						name: 'Respiratory Therapy', // Name of Course
-						majors: [], // Array of Majors
-					},
-					{
-						name: 'Doctor of Medicine', // Name of Course
-						majors: [], // Array of Majors
-					},
-				]
-			}
-		]
-	},
-	{
-		name: 'College of Theology', // Name of Department
-		degrees: [
-			{
-				name: 'Bachelor of ', // Name of Degree
-				courses: [
-					{
-						name: 'Theology', // Name of Course
-						majors: [], // Array of Majors
-					},
-				]
-			}
-		]
-	}
-];
-
-export const DEGREES1 = [
-	{
-		name: 'Bachelor of Arts', // Name of Degree
-		departments: [
-			{
-				name: 'CAS', // Name of Department
-				courses: [
-					'English Language Studies',
-					'Political Science',
-					'Biology',
-					'Biology with specialization in Microbiology',
-					'Chemistry',
-					'Psychology',
-					'Social Work',
 				],
 			},
+		],
+	},
+	{
+		name: 'College of Engineering',
+		degrees: [
 			{
-				name: 'CBA',
+				name: 'Bachelor of Science',
 				courses: [
-					'English Language Studies',
-					'Political Science',
-					'Biology',
-					'Biology with specialization in Microbiology',
-					'Chemistry',
-					'Psychology',
-					'Social Work',
+					{
+						name: 'Chemical Engineering',
+						majors: [],
+					},
+					{
+						name: 'Civil Engineering',
+						majors: [],
+					},
+					{
+						name: 'Electrical Engineering',
+						majors: [],
+					},
+					{
+						name: 'Electronics Engineering',
+						majors: [],
+					},
+					{
+						name: 'Mechanical Engineering',
+						majors: [],
+					},
+					{
+						name: 'Packaging Engineering',
+						majors: [],
+					},
+					{
+						name: 'Software Engineering',
+						majors: [],
+					},
+				],
+			},
+		],
+	},
+	{
+		name: 'College of Hospitality Management',
+		degrees: [
+			{
+				name: 'Bachelor of Science',
+				courses: [
+					{
+						name: 'Hospitality Management',
+						majors: [],
+					},
+					{
+						name: 'Tourism Management',
+						majors: [],
+					},
+				],
+			},
+		],
+	},
+	{
+		name: 'College of Medical Laboratory',
+		degrees: [
+			{
+				name: 'Bachelor of Science',
+				courses: [
+					{
+						name: 'Medical Laboratory Sciences',
+						majors: [],
+					},
+				],
+			},
+		],
+	},
+	{
+		name: 'College of Pharmacy',
+		degrees: [
+			{
+				name: 'Bachelor of Science',
+				courses: [
+					{
+						name: 'Pharmacy',
+						majors: [],
+					},
+				],
+			},
+		],
+	},
+	{
+		name: 'College of Medicine',
+		degrees: [
+			{
+				name: 'Bachelor of Science',
+				courses: [
+					{
+						name: 'Health, Fitness and Lifestyle Management',
+						majors: [],
+					},
+					{
+						name: 'Respiratory Therapy',
+						majors: [],
+					},
+					{
+						name: 'Doctor of Medicine',
+						majors: [],
+					},
+				],
+			},
+		],
+	},
+	{
+		name: 'College of Theology',
+		degrees: [
+			{
+				name: 'Bachelor of ',
+				courses: [
+					{
+						name: 'Theology',
+						majors: [],
+					},
 				],
 			},
 		],
