@@ -46,12 +46,29 @@ export const COURSES = [
 	'Major in Mathematics',
 ]
 
+export const DEPARTMENTS1 = [
+	{
+		name: 'College of Arts and Sciences', // Name of Department
+		degrees: [
+			{
+				name: 'Bachelor of Arts', // Name of Degree
+				courses: [
+					{
+						name: 'Business Add', // Name of Course
+						majors: ['Accounting', 'Marketing'], // Array of Majors
+					},
+				],
+			},
+		],
+	},
+]
+
 export const DEGREES1 = [
 	{
 		name: 'Bachelor of Arts', // Name of Degree
 		departments: [
 			{
-				name: 'CCS', // Name of Department
+				name: 'CAS', // Name of Department
 				courses: [
 					'English Language Studies',
 					'Political Science',

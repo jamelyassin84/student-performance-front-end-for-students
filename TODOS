@@ -10,8 +10,6 @@ Student Registration
 
 Student Login
 
-Student Dashboard
-
 Answer Survey
 	Year
 	Last Semester Enrolled
@@ -30,7 +28,7 @@ Dashboard
 	*Predict student grades
 
 View Recommendations
-	Study Hard
+	LEssen or improve Study Hard
 
 	
 
@@ -47,11 +45,20 @@ List of Students
 		Update
 		Year and Semester
 			Performance
-Customize Survey Form
-	Title, Description, enable or disable,
+    Customize Survey Form
+
+    Add Parent, isActive
+        name,
+        question,
+        isPositive
+        isRadio
+        Parent
+        isActive
+    
+
 
 Dashboard
-	Top Performing Students- Sort by course, department, range sang grade
+	Top Performing Students- Sort by degrees, course, department, range sang grade
 	
 	Best Psychometric perfomance based on top students
 
