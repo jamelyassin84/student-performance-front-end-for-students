@@ -11,6 +11,7 @@ import { Router } from '@angular/router'
 import { fuseAnimations } from '@fuse/animations'
 import { FuseAlertType } from '@fuse/components/alert'
 import { COURSES, DEPARTMENTS } from 'app/app-core/constants/app.constants'
+import { StudentService } from 'app/app-core/services/student.service'
 
 @Component({
 	selector: 'auth-sign-up',
@@ -41,7 +42,12 @@ export class AuthSignUpComponent implements OnInit {
 		private _router: Router,
 		private _loginAPI: LoginAPI,
 		private _registerAPI: RegisterAPI,
+		private _studentService: StudentService,
 	) {}
+
+	student$ = this._studentService.student$
+
+	user$ = this._studentService.user$
 
 	ngOnInit(): void {
 		this.signUpForm = this._formBuilder.group({
@@ -86,8 +92,6 @@ export class AuthSignUpComponent implements OnInit {
 		this.signUpForm.get('major')?.setValue('')
 
 		this.MAJORS = this.COURSES.find((course) => course.name === data).majors
-
-		console.log(data, this.MAJORS)
 	}
 
 	identity = (item: any) => item
@@ -117,7 +121,11 @@ export class AuthSignUpComponent implements OnInit {
 			next: (data) => {
 				localStorage.setItem('access_token', data.token.plainTextToken)
 
-				localStorage.setItem('user', data.token.user)
+				localStorage.setItem('user', JSON.stringify(data.user))
+
+				this.user$.next(data.user)
+
+				this.student$.next(data.user.student)
 
 				this._router.navigate(['/dashboard'])
 			},

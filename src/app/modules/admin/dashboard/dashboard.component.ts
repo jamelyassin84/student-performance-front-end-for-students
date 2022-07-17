@@ -1,3 +1,4 @@
+import { StudentService } from 'app/app-core/services/student.service'
 import { Component, OnInit } from '@angular/core'
 
 @Component({
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core'
 	styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-	constructor() {}
+	constructor(private _studentService: StudentService) {}
+
+	student$ = this._studentService.student$
 
 	data: any
 

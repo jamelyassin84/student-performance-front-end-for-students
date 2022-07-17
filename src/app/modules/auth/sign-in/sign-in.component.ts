@@ -1,10 +1,11 @@
+import { StudentService } from './../../../app-core/services/student.service'
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core'
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { Router } from '@angular/router'
 import { fuseAnimations } from '@fuse/animations'
 import { FuseAlertType } from '@fuse/components/alert'
-import { AuthService } from 'app/core/auth/auth.service'
 import { LoginAPI } from '../auth.service'
+import { BehaviorSubject } from 'rxjs'
 
 @Component({
 	selector: 'auth-sign-in',
@@ -26,7 +27,12 @@ export class AuthSignInComponent implements OnInit {
 		private _formBuilder: FormBuilder,
 		private _router: Router,
 		private _loginAPI: LoginAPI,
+		private _studentService: StudentService,
 	) {}
+
+	student$ = this._studentService.student$
+
+	user$ = this._studentService.user$
 
 	ngOnInit(): void {
 		this.signInForm = this._formBuilder.group({
@@ -48,7 +54,11 @@ export class AuthSignInComponent implements OnInit {
 			next: (data) => {
 				localStorage.setItem('access_token', data.token.plainTextToken)
 
-				localStorage.setItem('user', data.token.user)
+				localStorage.setItem('user', JSON.stringify(data.user))
+
+				this.user$.next(data.user)
+
+				this.student$.next(data.user.student)
 
 				this._router.navigate(['/dashboard'])
 			},
