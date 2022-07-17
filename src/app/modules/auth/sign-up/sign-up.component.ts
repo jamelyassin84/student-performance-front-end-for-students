@@ -1,11 +1,16 @@
-import { DEGREES } from './../../../app-core/constants/app.constants'
+import { LoginAPI, RegisterAPI } from './../auth.service'
+import {
+	Course,
+	Degree,
+	DEGREES,
+	DEPARTMENTS1,
+} from './../../../app-core/constants/app.constants'
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core'
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { fuseAnimations } from '@fuse/animations'
 import { FuseAlertType } from '@fuse/components/alert'
 import { COURSES, DEPARTMENTS } from 'app/app-core/constants/app.constants'
-import { AuthService } from 'app/core/auth/auth.service'
 
 @Component({
 	selector: 'auth-sign-up',
@@ -23,82 +28,109 @@ export class AuthSignUpComponent implements OnInit {
 	signUpForm: FormGroup
 	showAlert: boolean = false
 
-	DEPARTMENTS = DEPARTMENTS
+	DEPARTMENTS = DEPARTMENTS1
 
-	COURSES = COURSES
+	DEGREES: Degree[] = []
 
-	DEGREES = DEGREES
+	COURSES: Course[] = []
 
-	/**
-	 * Constructor
-	 */
+	MAJORS: string[] = []
+
 	constructor(
-		private _authService: AuthService,
 		private _formBuilder: FormBuilder,
 		private _router: Router,
+		private _loginAPI: LoginAPI,
+		private _registerAPI: RegisterAPI,
 	) {}
 
-	// -----------------------------------------------------------------------------------------------------
-	// @ Lifecycle hooks
-	// -----------------------------------------------------------------------------------------------------
-
-	/**
-	 * On init
-	 */
 	ngOnInit(): void {
-		// Create the form
 		this.signUpForm = this._formBuilder.group({
 			name: ['', Validators.required],
 			email: ['', [Validators.required, Validators.email]],
 			password: ['', Validators.required],
-			company: [''],
+			confirm_password: ['', Validators.required],
+			sex: ['Male'],
+			phone: ['', Validators.required],
+			department: [DEPARTMENTS[0], Validators.required],
+			degree: ['', Validators.required],
+			course: ['', Validators.required],
+			major: [''],
+			address: ['', Validators.required],
 			agreements: ['', Validators.requiredTrue],
 		})
 	}
 
-	// -----------------------------------------------------------------------------------------------------
-	// @ Public methods
-	// -----------------------------------------------------------------------------------------------------
+	onDepartmentChange(data: string) {
+		this.COURSES = []
+		this.MAJORS = []
+		this.signUpForm.get('course')?.setValue('')
+		this.signUpForm.get('major')?.setValue('')
+		this.signUpForm.get('degree')?.setValue('')
+
+		this.DEGREES = DEPARTMENTS1.find(
+			(department) => department.name === data,
+		).degrees
+	}
+
+	onDegreeChange(data: string) {
+		this.COURSES = []
+		this.MAJORS = []
+		this.signUpForm.get('course')?.setValue('')
+		this.signUpForm.get('major')?.setValue('')
+
+		this.COURSES = this.DEGREES.find((degree) => degree.name === data).courses
+	}
+
+	onCourseChange(data: string) {
+		this.MAJORS = []
+		this.signUpForm.get('major')?.setValue('')
+
+		this.MAJORS = this.COURSES.find((course) => course.name === data).majors
+
+		console.log(data, this.MAJORS)
+	}
 
 	identity = (item: any) => item
 
-	/**
-	 * Sign up
-	 */
 	signUp(): void {
-		// Do nothing if the form is invalid
-		if (this.signUpForm.invalid) {
+		if (
+			this.signUpForm.invalid ||
+			this.signUpForm.get('password')?.value !==
+				this.signUpForm.get('confirm_password')?.value
+		) {
+			this.alert = {
+				type: 'error',
+				message:
+					'Form is invalid or password and confirm password does not match.',
+			}
+
+			this.showAlert = true
+
 			return
 		}
 
-		// Disable the form
 		this.signUpForm.disable()
 
-		// Hide the alert
 		this.showAlert = false
 
-		// Sign up
-		this._authService.signUp(this.signUpForm.value).subscribe(
-			(response) => {
-				// Navigate to the confirmation required page
-				this._router.navigateByUrl('/confirmation-required')
+		this._registerAPI.post(this.signUpForm.value).subscribe({
+			next: (data) => {
+				localStorage.setItem('access_token', data.token.plainTextToken)
+
+				localStorage.setItem('user', data.token.user)
+
+				this._router.navigate(['/dashboard'])
 			},
-			(response) => {
-				// Re-enable the form
+			error: (err) => {
 				this.signUpForm.enable()
 
-				// Reset the form
-				this.signUpNgForm.resetForm()
-
-				// Set the alert
 				this.alert = {
 					type: 'error',
-					message: 'Something went wrong, please try again.',
+					message: err.error,
 				}
 
-				// Show the alert
 				this.showAlert = true
 			},
-		)
+		})
 	}
 }

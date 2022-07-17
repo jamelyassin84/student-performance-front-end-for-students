@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http'
 import { FuseAlertModule } from './../../@fuse/components/alert/alert.module'
 import { FuseCardModule } from './../../@fuse/components/card/card.module'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
@@ -12,6 +13,8 @@ import { PageHeaderComponent } from 'app/components/page-header/page-header.comp
 import { MatButtonModule } from '@angular/material/button'
 import { MatSelectModule } from '@angular/material/select'
 import { NgApexchartsModule } from 'ng-apexcharts'
+import { HasDataPipe } from '@global_packages/pipes/has-data.pipe'
+import { EmptyPipe } from '@global_packages/pipes/empty-pipe'
 
 const components = [PageHeaderComponent]
 
@@ -30,15 +33,16 @@ const modules = [
 	FuseAlertModule,
 	MatSelectModule,
 	NgApexchartsModule,
+	HttpClientModule,
 ]
 
-const pipes = []
+const pipes = [HasDataPipe, EmptyPipe]
 
 const directives = []
 
 @NgModule({
-	declarations: [...components],
+	declarations: [...components, ...pipes],
 	imports: [...modules],
-	exports: [...modules, ...components],
+	exports: [...modules, ...components, ...pipes],
 })
 export class SharedModule {}

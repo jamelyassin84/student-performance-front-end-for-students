@@ -2,7 +2,6 @@ import { environment } from './../../environments/environment'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Inject, Injectable, Optional } from '@angular/core'
 import { Observable } from 'rxjs'
-import { NgxIndexedDBService } from 'ngx-indexed-db'
 
 @Injectable({
 	providedIn: 'root',
@@ -10,7 +9,6 @@ import { NgxIndexedDBService } from 'ngx-indexed-db'
 export class BaseService<T> {
 	constructor(
 		@Optional() public http: HttpClient,
-		@Optional() public indexDbService: NgxIndexedDBService,
 		@Inject('url') public url: String = '',
 	) {}
 
@@ -71,9 +69,7 @@ export class BaseService<T> {
 		id: string | number | false,
 		data: FormData | any,
 	): Observable<T> {
-		const url = `${environment.api}${this.url}${
-			id !== false ? `/${id}` : ''
-		}`
+		const url = `${environment.api}${this.url}${id !== false ? `/${id}` : ''}`
 
 		data.append('_method', 'PUT')
 
@@ -81,9 +77,7 @@ export class BaseService<T> {
 	}
 
 	update(id: string | number | false, data: Object): Observable<T> {
-		const url = `${environment.api}${this.url}${
-			id !== false ? `/${id}` : ''
-		}`
+		const url = `${environment.api}${this.url}${id !== false ? `/${id}` : ''}`
 
 		return this.http.put<T>(url, data, this.headers())
 	}
