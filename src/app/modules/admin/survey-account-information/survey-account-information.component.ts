@@ -27,6 +27,7 @@ export class SurveyAccountInformationComponent implements OnInit {
 	user$ = this._studentService.user$
 
 	form: FormGroup = this._formBuilder.group({
+		id: [''],
 		name: ['', Validators.required],
 		email: ['', [Validators.required, Validators.email]],
 		password: ['', Validators.required],
@@ -53,6 +54,7 @@ export class SurveyAccountInformationComponent implements OnInit {
 	ngAfterViewInit(): void {
 		this.user$.pipe(takeUntil(this.unsubscribe$)).subscribe((user) => {
 			this.form.setValue({
+				id: user.id,
 				name: user.student.name,
 				email: user.email,
 				password: '',
@@ -108,5 +110,30 @@ export class SurveyAccountInformationComponent implements OnInit {
 
 	identity = (item: any) => item
 
-	update() {}
+	update() {
+		if (this.form.invalid) {
+			return
+		}
+
+		this.form.disable()
+
+		this._studentService.update(this.form.value.id, this.form.value).subscribe({
+			next: (user) => {
+				localStorage.setItem('user', JSON.stringify(user))
+
+				this.user$.next(user)
+
+				this._studentService.student$.next(user.student)
+
+				alert('Information Updated')
+
+				this.form.enable()
+			},
+			error: (err) => {
+				alert('Error Updating Information')
+
+				this.form.enable()
+			},
+		})
+	}
 }
