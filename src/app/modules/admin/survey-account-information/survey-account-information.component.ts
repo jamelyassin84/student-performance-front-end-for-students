@@ -1,6 +1,14 @@
-import { COURSES } from './../../../app-core/constants/app.constants'
-import { Component, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import {
+	Course,
+	COURSES,
+	Degree,
+	DEPARTMENTS1,
+} from './../../../app-core/constants/app.constants'
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { DEGREES, DEPARTMENTS } from 'app/app-core/constants/app.constants'
+import { Subject, takeUntil } from 'rxjs'
+import { StudentService } from 'app/app-core/services/student.service'
 
 @Component({
 	selector: 'app-survey-account-information',
@@ -8,15 +16,97 @@ import { DEGREES, DEPARTMENTS } from 'app/app-core/constants/app.constants'
 	styleUrls: ['./survey-account-information.component.scss'],
 })
 export class SurveyAccountInformationComponent implements OnInit {
-	constructor() {}
+	constructor(
+		private _formBuilder: FormBuilder,
+		private _studentService: StudentService,
+		private _cdr: ChangeDetectorRef,
+	) {}
 
-	DEPARTMENTS = DEPARTMENTS
+	unsubscribe$: Subject<any> = new Subject()
 
-	COURSES = COURSES
+	user$ = this._studentService.user$
 
-	DEGREES = DEGREES
+	form: FormGroup = this._formBuilder.group({
+		name: ['', Validators.required],
+		email: ['', [Validators.required, Validators.email]],
+		password: ['', Validators.required],
+		confirm_password: ['', Validators.required],
+		sex: ['Male'],
+		phone: ['', Validators.required],
+		department: [DEPARTMENTS[0], Validators.required],
+		degree: ['', Validators.required],
+		course: ['', Validators.required],
+		major: [''],
+		address: ['', Validators.required],
+	})
+
+	DEPARTMENTS = DEPARTMENTS1
+
+	DEGREES: Degree[] = []
+
+	COURSES: Course[] = []
+
+	MAJORS: string[] = []
 
 	ngOnInit(): void {}
 
+	ngAfterViewInit(): void {
+		this.user$.pipe(takeUntil(this.unsubscribe$)).subscribe((user) => {
+			this.form.setValue({
+				name: user.student.name,
+				email: user.email,
+				password: '',
+				confirm_password: '',
+				sex: user.student.sex,
+				phone: user.student.phone,
+				department: user.student.department,
+				degree: user.student.degree,
+				major: user.student.major,
+				address: user.student.address,
+				course: user.student.course,
+			})
+		})
+
+		this._cdr.detectChanges()
+	}
+
+	onDepartmentChange(data: string) {
+		this.COURSES = []
+		this.MAJORS = []
+		this.form.get('course')?.setValue('')
+		this.form.get('major')?.setValue('')
+		this.form.get('degree')?.setValue('')
+
+		this.DEGREES = DEPARTMENTS1.find(
+			(department) => department.name === data,
+		).degrees
+	}
+
+	onDegreeChange(data: string) {
+		this.COURSES = []
+		this.MAJORS = []
+		this.form.get('course')?.setValue('')
+		this.form.get('major')?.setValue('')
+
+		this.COURSES = this.DEGREES.find((degree) => degree.name === data).courses
+	}
+
+	onCourseChange(data: string) {
+		this.MAJORS = []
+		this.form.get('major')?.setValue('')
+
+		this.MAJORS = this.COURSES.find((course) => course.name === data).majors
+	}
+
+	ngOnDestroy(): void {
+		this.unsubscribe$.next(null)
+
+		this.unsubscribe$.complete()
+
+		this._cdr.detach()
+	}
+
 	identity = (item: any) => item
+
+	update() {}
 }

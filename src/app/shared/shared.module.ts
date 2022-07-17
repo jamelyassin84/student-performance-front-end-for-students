@@ -15,8 +15,10 @@ import { MatSelectModule } from '@angular/material/select'
 import { NgApexchartsModule } from 'ng-apexcharts'
 import { HasDataPipe } from '@global_packages/pipes/has-data.pipe'
 import { EmptyPipe } from '@global_packages/pipes/empty-pipe'
+import { InitialsPipe } from '@global_packages/pipes/initials.pipe'
+import { AvatarPlaceholderComponent } from 'app/components/placeholder/avatar-placeholder/avatar-placeholder.component'
 
-const components = [PageHeaderComponent]
+const components = [PageHeaderComponent, AvatarPlaceholderComponent]
 
 const modules = [
 	CommonModule,
@@ -36,7 +38,7 @@ const modules = [
 	HttpClientModule,
 ]
 
-const pipes = [HasDataPipe, EmptyPipe]
+const pipes = [HasDataPipe, EmptyPipe, InitialsPipe]
 
 const directives = []
 

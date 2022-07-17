@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full">
+<div [formGroup]="form" class="flex flex-col w-full">
 	<page-header
 		class="w-full"
 		pageTitle="Profile"
@@ -8,60 +8,202 @@
 
 	<div class="grid grid-cols-5 items-center gap-10 p-10">
 		<mat-form-field class="w-full">
-			<mat-label>Full name </mat-label>
-			<input matInput />
+			<mat-label>Full name</mat-label>
+
+			<input id="name" matInput [formControlName]="'name'" />
+
+			<mat-error *ngIf="form.get('name').hasError('required')">
+				Full name is required
+			</mat-error>
 		</mat-form-field>
 
 		<mat-form-field class="w-full">
-			<mat-label>Email </mat-label>
-			<input matInput />
+			<mat-label>Sex</mat-label>
+
+			<mat-select formControlName="sex">
+				<mat-option [value]="'Male'">Male</mat-option>
+				<mat-option [value]="'Female'">Female</mat-option>
+			</mat-select>
 		</mat-form-field>
 
 		<mat-form-field class="w-full">
-			<mat-label>Password </mat-label>
-			<input matInput type="password" />
+			<mat-label>Email address</mat-label>
+
+			<input id="email" matInput [formControlName]="'email'" />
+
+			<mat-error *ngIf="form.get('email').hasError('required')">
+				Email address is required
+			</mat-error>
+
+			<mat-error *ngIf="form.get('email').hasError('email')">
+				Please enter a valid email address
+			</mat-error>
 		</mat-form-field>
 
 		<mat-form-field class="w-full">
-			<mat-label>Confirm Password </mat-label>
-			<input matInput type="password" />
+			<mat-label>Phone</mat-label>
+
+			<input id="phone" matInput [formControlName]="'phone'" />
+
+			<mat-error *ngIf="form.get('phone').hasError('required')">
+				Phone is required
+			</mat-error>
 		</mat-form-field>
 
 		<mat-form-field class="w-full">
+			<mat-label>Password</mat-label>
+
+			<input
+				id="password"
+				matInput
+				type="password"
+				[formControlName]="'password'"
+				#passwordField
+			/>
+			<button
+				mat-icon-button
+				type="button"
+				(click)="
+					passwordField.type === 'password'
+						? (passwordField.type = 'text')
+						: (passwordField.type = 'password')
+				"
+				matSuffix
+			>
+				<mat-icon
+					class="icon-size-5"
+					*ngIf="passwordField.type === 'password'"
+					[svgIcon]="'heroicons_solid:eye'"
+				></mat-icon>
+				<mat-icon
+					class="icon-size-5"
+					*ngIf="passwordField.type === 'text'"
+					[svgIcon]="'heroicons_solid:eye-off'"
+				></mat-icon>
+			</button>
+
+			<mat-error> Password is required </mat-error>
+		</mat-form-field>
+
+		<mat-form-field class="w-full">
+			<mat-label>Confirm Password</mat-label>
+			<input
+				type="password"
+				id="company-confirm"
+				matInput
+				[formControlName]="'confirm_password'"
+				#confirmPassword
+			/>
+
+			<button
+				mat-icon-button
+				type="button"
+				(click)="
+					confirmPassword.type === 'password'
+						? (confirmPassword.type = 'text')
+						: (confirmPassword.type = 'password')
+				"
+				matSuffix
+			>
+				<mat-icon
+					class="icon-size-5"
+					*ngIf="confirmPassword.type === 'password'"
+					[svgIcon]="'heroicons_solid:eye'"
+				></mat-icon>
+				<mat-icon
+					class="icon-size-5"
+					*ngIf="confirmPassword.type === 'text'"
+					[svgIcon]="'heroicons_solid:eye-off'"
+				></mat-icon>
+			</button>
+
+			<mat-error>
+				Confirm Password is required and must match Password
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field *ngIf="DEPARTMENTS | has_data" class="w-full">
 			<mat-label>Department</mat-label>
-			<mat-select>
-				<mat-option *ngFor="let item of DEPARTMENTS; trackBy: identity">{{
-					item
-				}}</mat-option>
+
+			<mat-select
+				(selectionChange)="onDepartmentChange($event.value)"
+				formControlName="department"
+			>
+				<mat-option
+					[value]="department.name"
+					*ngFor="let department of DEPARTMENTS; trackBy: identity"
+					>{{ department.name }}</mat-option
+				>
 			</mat-select>
 		</mat-form-field>
 
-		<mat-form-field class="w-full">
+		<mat-form-field *ngIf="DEGREES | has_data" class="w-full">
 			<mat-label>Degree</mat-label>
-			<mat-select>
-				<mat-option *ngFor="let item of DEGREES; trackBy: identity">{{
-					item
-				}}</mat-option>
+
+			<mat-select
+				(selectionChange)="onDegreeChange($event.value)"
+				formControlName="degree"
+			>
+				<mat-option
+					[value]="degree.name"
+					*ngFor="let degree of DEGREES; trackBy: identity"
+					>{{ degree.name }}</mat-option
+				>
 			</mat-select>
 		</mat-form-field>
 
-		<mat-form-field class="w-full">
+		<mat-form-field *ngIf="COURSES | has_data" class="w-full">
 			<mat-label>Course</mat-label>
-			<mat-select>
-				<mat-option *ngFor="let item of COURSES; trackBy: identity">{{
-					item
-				}}</mat-option>
+
+			<mat-select
+				(selectionChange)="onCourseChange($event.value)"
+				formControlName="course"
+			>
+				<mat-option
+					[value]="course.name"
+					*ngFor="let course of COURSES; trackBy: identity"
+					>{{ course.name }}</mat-option
+				>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field *ngIf="MAJORS | has_data" class="w-full">
+			<mat-label>Major</mat-label>
+
+			<mat-select formControlName="major">
+				<mat-option
+					[value]="major"
+					*ngFor="let major of MAJORS; trackBy: identity"
+					>{{ major }}</mat-option
+				>
 			</mat-select>
 		</mat-form-field>
 
 		<mat-form-field class="w-full">
 			<mat-label>Address</mat-label>
-			<input matInput />
+
+			<input formControlName="address" matInput />
+
+			<mat-error> Address is required </mat-error>
 		</mat-form-field>
 
 		<div>
-			<button class="bg-blue-800 hover:bg-blue-900 text-white py-3 px-15">
-				Update Information
+			<button
+				[ngClass]="{
+					'bg-blue-800': form.valid && !form.disabled,
+					'bg-gray-500': form.disabled || !form.valid
+				}"
+				class="fuse-mat-button-large w-full mt-3 flex text-white py-3 font-bold hover:bg-blue-900 items-center justify-center"
+				[disabled]="form.disabled || !form.valid"
+				(click)="update()"
+			>
+				<span *ngIf="!form.disabled"> Update information </span>
+
+				<mat-progress-spinner
+					*ngIf="form.disabled"
+					[diameter]="24"
+					[mode]="'indeterminate'"
+				></mat-progress-spinner>
 			</button>
 		</div>
 	</div>
