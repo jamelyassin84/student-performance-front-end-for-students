@@ -6,34 +6,41 @@
 		icon="insights"
 	></page-header>
 
-	<div class="grid grid-cols-5 items-center gap-10 p-10">
-		<mat-form-field class="w-full">
-			<mat-label>Year Level</mat-label>
+	<ul class="px-10 grid md:grid-cols-2 gap-x-10">
+		<li class="p-5 border-b" *ngFor="let performance of performances">
+			<div>
+				Semester:
+				<span class="font-bold ml-1">{{ performance.semester }}</span>
+			</div>
 
-			<mat-select>
-				<mat-option *ngFor="let item of YEAR_LEVELS; trackBy: identity">{{
-					item
-				}}</mat-option>
-			</mat-select>
-		</mat-form-field>
+			<div>
+				Year Level:
+				<span class="font-bold ml-1">{{ performance.year_level }}</span>
+			</div>
 
-		<mat-form-field class="w-full">
-			<mat-label>Last Semester Enrolled</mat-label>
+			<div>
+				Status:
+				<span class="font-bold ml-1">{{
+					toImplicitRating(performance.year_level).title
+				}}</span>
 
-			<mat-select>
-				<mat-option *ngFor="let item of SEMESTERS; trackBy: identity">{{
-					item
-				}}</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</div>
-
-	<ul class="px-10">
-		<li
-			class="p-5 border-b"
-			*ngFor="let item of [1, 23, 4, 5, 56, 6, 7, 8, 9, 9]"
-		>
-			Psychometric Score: <span class="text-emerald-500 text-xl ml-5">96</span>
+				<div class="mt-3">
+					Recommendations:
+					<div
+						*ngFor="
+							let item of toImplicitRating(performance.year_level)
+								.recommendations
+						"
+						class="bg-amber-50 text-amber-500 rounded-md border border-amber-400 my-2 p-2 w-auto flex items-center"
+					>
+						<mat-icon
+							class="0 text-amber-500 mr-2"
+							svgIcon="warning"
+						></mat-icon>
+						{{ item }}
+					</div>
+				</div>
+			</div>
 		</li>
 	</ul>
 </div>
