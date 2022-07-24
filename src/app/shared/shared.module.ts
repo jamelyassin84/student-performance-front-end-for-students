@@ -17,6 +17,7 @@ import { HasDataPipe } from '@global_packages/pipes/has-data.pipe'
 import { EmptyPipe } from '@global_packages/pipes/empty-pipe'
 import { InitialsPipe } from '@global_packages/pipes/initials.pipe'
 import { AvatarPlaceholderComponent } from 'app/components/placeholder/avatar-placeholder/avatar-placeholder.component'
+import { AnimateJsDirective } from '@global_packages/directives/animate.js.directive'
 
 const components = [PageHeaderComponent, AvatarPlaceholderComponent]
 
@@ -40,11 +41,11 @@ const modules = [
 
 const pipes = [HasDataPipe, EmptyPipe, InitialsPipe]
 
-const directives = []
+const directives = [AnimateJsDirective]
 
 @NgModule({
-	declarations: [...components, ...pipes],
+	declarations: [...components, ...pipes, ...directives],
 	imports: [...modules],
-	exports: [...modules, ...components, ...pipes],
+	exports: [...modules, ...components, ...pipes, ...directives],
 })
 export class SharedModule {}

@@ -1,107 +1,98 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
+import { dbwAnimations } from '@global_packages/animations/animation.api'
+import { hasData } from '@global_packages/helpers/helpers'
 import { SEMESTERS, YEAR_LEVELS } from 'app/app-core/constants/app.constants'
-import {
-	GRIT_SCALE,
-	SELF_EFFICACY,
-	SELF_REGULATION_QUESTIONS,
-	SurveyForm,
-	TIME_MANAGEMENT_QUESTIONS,
-} from './survey.form'
+import { SurveyForm } from 'app/app-core/store/form/form.model'
+import { SurveyFormService } from 'app/app-core/store/form/form.service'
+import { SurveyQuestion } from 'app/app-core/store/questions/questions.model'
 
 @Component({
 	selector: 'app-survey-answer',
 	templateUrl: './survey-answer.component.html',
 	styleUrls: ['./survey-answer.component.scss'],
+	animations: [...dbwAnimations],
 })
 export class SurveyAnswerComponent implements OnInit {
+	constructor(
+		private _surveyFormService: SurveyFormService,
+		private _formBuilder: FormBuilder,
+	) {}
+
 	SEMESTERS = SEMESTERS
+
 	YEAR_LEVELS = YEAR_LEVELS
 
-	GRIT_SCALE = GRIT_SCALE
-	// SELF_EFFICACY = SELF_EFFICACY
-	TIME_MANAGEMENT_QUESTIONS = TIME_MANAGEMENT_QUESTIONS
-	SELF_REGULATION_QUESTIONS = SELF_REGULATION_QUESTIONS
+	forms: SurveyForm[] = []
 
-	currentForm: SurveyForms = 'gritScaleIndex'
+	currentForm?: SurveyForm
 
-	gritScaleIndex: number = 0
-	gritScaleIndexScore: Score[] = []
+	currentQuestion?: SurveyQuestion
 
-	selfEfficacyIndex: number = 0
-	selfEfficacyIndexScore: Score[] = []
+	ratings: string[] = [
+		'Very much like me',
+		'Mostly like me',
+		'Somewhat like me',
+		'Not much like me',
+		'Not like me at all',
+	]
 
-	timeManageMentIndex: number = 0
-	timeManageMentIndexScore: Score[] = []
+	form: FormGroup = this._formBuilder.group({
+		year_level: ['1st', [Validators.required]],
+		semester: ['1st', [Validators.required]],
+		performance: [0, [Validators.required]],
+	})
 
-	selfRegulationIndex: number = 0
-	selfRegulationIndexScore: Score[] = []
+	showSubmitSurvey = false
 
-	constructor() {}
+	ngOnInit(): void {
+		this.getForms()
+	}
 
-	ngOnInit(): void {}
+	getForms() {
+		this._surveyFormService.get().subscribe((forms: SurveyForm[]) => {
+			if (hasData(forms)) {
+				this.forms = forms
 
-	setScore(type: SurveyForms, index: number, score: Score) {
-		this[`${type}Score`].splice(index, 1, score)
+				this.currentForm = forms[0]
+
+				if (this.currentForm && hasData(forms[0].questions)) {
+					this.currentQuestion = forms[0].questions[0]
+				}
+			}
+		})
 	}
 
 	identity = (item: any) => item
 
-	includesFormIndex(
-		type: SurveyForms,
-		formIndex: number,
-		index: number,
-	): boolean {
-		const currentScore = this[`${type}Score`][index]
+	onNext(formIndex: number, form: SurveyForm) {
+		const questionIndex = this.forms[formIndex].questions.findIndex(
+			(question) => question.id === this.currentQuestion.id,
+		)
 
 		if (
-			currentScore &&
-			formIndex === index &&
-			formIndex === currentScore.index
+			questionIndex === this.currentForm.questions.length - 1 &&
+			formIndex === this.forms.length - 1
 		) {
-			return true
-		}
-
-		return false
-	}
-
-	onNext(type: SurveyForms, formType: SurveyForm[]) {
-		const index = survey_form_types.findIndex((form) => form === type)
-
-		if (
-			type === survey_form_types[survey_form_types.length - 1] &&
-			formType.length - 1 === this[`${type}`]
-		) {
-			alert('Form Submitted')
-		}
-
-		if (formType.length - 1 === this[`${type}`]) {
-			this.currentForm = survey_form_types[index + 1]
+			this.showSubmitSurvey = true
 
 			return
 		}
 
-		this[`${type}`]++
+		if (questionIndex === this.currentForm.questions.length - 1) {
+			this.currentForm = this.forms[formIndex + 1]
+
+			if (hasData(this.forms[formIndex + 1].questions)) {
+				this.currentQuestion = this.forms[formIndex + 1].questions[0]
+			}
+
+			return
+		}
+
+		this.currentQuestion = form.questions[questionIndex + 1]
 	}
 
-	onBack(type: SurveyForms) {
-		this[`${type}`]--
+	save() {
+		alert('Survey Submitted. Please check your performance on survey results.')
 	}
-}
-
-export const survey_form_types: SurveyForms[] = [
-	'gritScaleIndex',
-	// 'selfEfficacyIndex',
-	'timeManageMentIndex',
-	'selfRegulationIndex',
-]
-
-export type SurveyForms =
-	| 'gritScaleIndex'
-	// | 'selfEfficacyIndex'
-	| 'timeManageMentIndex'
-	| 'selfRegulationIndex'
-
-export interface Score {
-	index: number
-	rating: number
 }
