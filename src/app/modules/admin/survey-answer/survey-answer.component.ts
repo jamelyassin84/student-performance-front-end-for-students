@@ -168,9 +168,7 @@ export class SurveyAnswerComponent implements OnInit {
 				.post({ ...this.form.value, student_id: student.id })
 				.subscribe((performance) => {
 					alert(
-						`Survey Submitted. Your score is ${
-							toImplicitRating(performance).title
-						}.`,
+						`Survey Submitted. Keep track of your scores in survey results.`,
 					)
 				})
 		})
