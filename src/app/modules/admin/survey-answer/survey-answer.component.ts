@@ -132,7 +132,7 @@ export class SurveyAnswerComponent implements OnInit {
 		for (let result of this.results) {
 			let averageFormPerformance = 0
 
-			let score = 0
+			let score = 9
 
 			for (let array of result) {
 				score += array.score
