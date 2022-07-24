@@ -10,6 +10,9 @@ import { SEMESTERS, YEAR_LEVELS } from 'app/app-core/constants/app.constants'
 import { SurveyForm } from 'app/app-core/store/form/form.model'
 import { SurveyFormService } from 'app/app-core/store/form/form.service'
 import { SurveyQuestion } from 'app/app-core/store/questions/questions.model'
+import { SurveyPerformanceService } from 'app/app-core/store/performance/performance.service'
+import { StudentService } from 'app/app-core/services/student.service'
+import { take } from 'rxjs'
 
 @Component({
 	selector: 'app-survey-answer',
@@ -19,8 +22,10 @@ import { SurveyQuestion } from 'app/app-core/store/questions/questions.model'
 })
 export class SurveyAnswerComponent implements OnInit {
 	constructor(
-		private _surveyFormService: SurveyFormService,
 		private _formBuilder: FormBuilder,
+		private _surveyFormService: SurveyFormService,
+		private _surveyPerformanceService: SurveyPerformanceService,
+		private _studentService: StudentService,
 	) {}
 
 	SEMESTERS = SEMESTERS
@@ -157,9 +162,17 @@ export class SurveyAnswerComponent implements OnInit {
 
 		this.form.get('performance').setValue(performance)
 
-		alert(
-			`Survey Submitted. Your score is ${toImplicitRating(performance).title}.`,
-		)
+		this._studentService.student$.pipe(take(1)).subscribe((student) => {
+			this._surveyPerformanceService
+				.post({ ...this.form.value, student_id: student.id })
+				.subscribe((performance) => {
+					alert(
+						`Survey Submitted. Your score is ${
+							toImplicitRating(performance).title
+						}.`,
+					)
+				})
+		})
 	}
 
 	hasAnswered(question: SurveyQuestion): boolean {
