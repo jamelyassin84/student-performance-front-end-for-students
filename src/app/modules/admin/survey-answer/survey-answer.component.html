@@ -57,6 +57,15 @@
 		</div>
 	</div>
 
+	<div
+		class="bg-sky-50 text-sky-500 rounded-md border border-sky-400 md:w-1/2 m-10 p-5 -mb-20"
+	>
+		I am aware that this survey is duty bound and obligated under the RA No.
+		10173 or Data Privacy Act of 2012 to protect all my personal, private and
+		sensitive information. I am also willing to give my answers to this survey
+		with complete honesty and integrity.
+	</div>
+
 	<div *ngIf="currentForm && !showSubmitSurvey">
 		<div
 			@slideInBottom
@@ -65,9 +74,11 @@
 			class="grid grid-cols-2 items-center p-10 gap-y-0"
 			style="min-height: 79vh"
 		>
-			<div class="col-span-2 text-4xl font-extrabold">{{ form.name }}</div>
+			<div class="col-span-2 text-4xl font-extrabold md:-mb-40">
+				{{ form.name }}
+			</div>
 
-			<div class="col-span-1 md:-mt-40">
+			<div class="col-span-1">
 				<!-- animateJs
 					animation="animate__slideInLeft" -->
 				<div
