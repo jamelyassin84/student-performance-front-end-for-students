@@ -111,56 +111,88 @@ export function toImplicitRating(rating: number): {
 	if (rating >= 95) {
 		return {
 			title: 'Excellent',
-			recommendations: ['Keep it doing what you’re doing!', 'Make sure you eat, sleep, and exercise regularly!'],
+			recommendations: [
+				'Keep it doing what you’re doing!',
+				'Make sure you eat, sleep, and exercise regularly!',
+			],
 		}
 	}
 
 	if (rating >= 90) {
 		return {
 			title: 'Amazing',
-			recommendations: ['Review your notes a little more ', 'Organize school work '],
+			recommendations: [
+				'Review your notes a little more ',
+				'Organize school work ',
+			],
 		}
 	}
 
 	if (rating >= 85) {
 		return {
 			title: 'Great!Keep up the pace!',
-			recommendations: ['Review more frequently before tests', 'Focus on organization'],
+			recommendations: [
+				'Review more frequently before tests',
+				'Focus on organization',
+			],
 		}
 	}
 
 	if (rating >= 80) {
 		return {
 			title: 'Youre doing good!Theres always room for improvement!',
-			recommendations: ['Focus on key points of the subject', 'Be punctual on attendance & assignments','Manage time wisely'],
+			recommendations: [
+				'Focus on key points of the subject',
+				'Be punctual on attendance & assignments',
+				'Manage time wisely',
+			],
 		}
 	}
 
 	if (rating >= 75) {
 		return {
-			title: 'Nice job!Youre doing a fair job at your work.Lets aim even higher!',
-			recommendations: ['Review your notes more', 'Try a new learning strategy', 'Dont procrastinate'],
+			title:
+				'Nice job!Youre doing a fair job at your work.Lets aim even higher!',
+			recommendations: [
+				'Review your notes more',
+				'Try a new learning strategy',
+				'Dont procrastinate',
+			],
 		}
 	}
 
 	if (rating >= 70) {
 		return {
 			title: 'Not bad!Theres still a lot of room to imrove!',
-			recommendations: ['Have a study session with your classmates ', 'Change study space', 'Attend class punctually','Do homework regularly'],
+			recommendations: [
+				'Have a study session with your classmates ',
+				'Change study space',
+				'Attend class punctually',
+				'Do homework regularly',
+			],
 		}
 	}
 
 	if (rating >= 65) {
 		return {
 			title: 'Keep trying! Lets work harder!',
-			recommendations: ['Ask your teacher for guidance', 'Make flashcards or rewrite notes for the topics youre struggling with','Do not procrastinate with homework '],
+			recommendations: [
+				'Ask your teacher for guidance',
+				'Make flashcards or rewrite notes for the topics youre struggling with',
+				'Do not procrastinate with homework ',
+			],
 		}
 	}
 
 	if (rating >= 60) {
 		return {
 			title: 'Dont give up Hang in there,champ!',
-			recommendations: ['Talk to your teacher & ask for guidance', 'Pay attention & sit at the front','Manage your time better','take & review your notes'],
+			recommendations: [
+				'Talk to your teacher & ask for guidance',
+				'Pay attention & sit at the front',
+				'Manage your time better',
+				'take & review your notes',
+			],
 		}
 	}
 

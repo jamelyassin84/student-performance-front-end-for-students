@@ -125,9 +125,10 @@ export class SurveyAnswerComponent implements OnInit {
 		})
 
 		if (question.question_value_type === 'positive') {
-			this.results[formIndex][resultIndex].score = index + 1
+			this.results[formIndex][resultIndex].score = (index + 1) * 20
 		} else {
-			this.results[formIndex][resultIndex].score = toNegativeScore(index + 1)
+			this.results[formIndex][resultIndex].score =
+				toNegativeScore(index + 1) * 20
 		}
 
 		console.log(this.results)
@@ -158,7 +159,7 @@ export class SurveyAnswerComponent implements OnInit {
 			formRating += rating
 		})
 
-		performance = (formRating / this.results.length) * 20
+		performance = formRating / this.results.length
 
 		this.form.get('performance').setValue(performance)
 
@@ -196,8 +197,8 @@ export class SurveyAnswerComponent implements OnInit {
 
 		let index =
 			question.question_value_type === 'negative'
-				? toNegativeScore(rating)
-				: rating
+				? toNegativeScore(rating) * 20
+				: rating * 20
 
 		for (let result of this.results) {
 			for (let array of result) {

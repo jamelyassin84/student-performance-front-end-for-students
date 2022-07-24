@@ -21,22 +21,19 @@
 			<div>
 				Status:
 				<span class="font-bold ml-1">{{
-					toImplicitRating(performance.year_level).title
+					toImplicitRating(performance.performance).title
 				}}</span>
 
 				<div class="mt-3">
 					Recommendations:
 					<div
 						*ngFor="
-							let item of toImplicitRating(performance.year_level)
+							let item of toImplicitRating(performance.performance)
 								.recommendations
 						"
-						class="bg-amber-50 text-amber-500 rounded-md border border-amber-400 my-2 p-2 w-auto flex items-center"
+						class="bg-teal-50 text-teal-500 border-teal-400 rounded-md border my-2 p-2 w-auto flex items-center"
 					>
-						<mat-icon
-							class="0 text-amber-500 mr-2"
-							svgIcon="warning"
-						></mat-icon>
+						<mat-icon class="0 text-teal-500 mr-2" svgIcon="info"></mat-icon>
 						{{ item }}
 					</div>
 				</div>
