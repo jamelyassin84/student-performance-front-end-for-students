@@ -103,3 +103,20 @@ export function toNegativeScore(score: number): number {
 
 	return score
 }
+
+export function toImplicitRating(rating: number): {
+	title: string
+	recommendations: string[]
+} {
+	if (rating >= 95) {
+		return {
+			title: 'Excellent',
+			recommendations: ['1', '2'],
+		}
+	}
+
+	return {
+		title: 'Excellent',
+		recommendations: ['1', '2'],
+	}
+}

@@ -1,7 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { dbwAnimations } from '@global_packages/animations/animation.api'
-import { hasData, toNegativeScore } from '@global_packages/helpers/helpers'
+import {
+	hasData,
+	toImplicitRating,
+	toNegativeScore,
+} from '@global_packages/helpers/helpers'
 import { SEMESTERS, YEAR_LEVELS } from 'app/app-core/constants/app.constants'
 import { SurveyForm } from 'app/app-core/store/form/form.model'
 import { SurveyFormService } from 'app/app-core/store/form/form.service'
@@ -153,7 +157,9 @@ export class SurveyAnswerComponent implements OnInit {
 
 		this.form.get('performance').setValue(performance)
 
-		alert(`Survey Submitted. Your score is ${performance}%.`)
+		alert(
+			`Survey Submitted. Your score is ${toImplicitRating(performance).title}.`,
+		)
 	}
 
 	hasAnswered(question: SurveyQuestion): boolean {
