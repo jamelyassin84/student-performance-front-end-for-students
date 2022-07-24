@@ -18,6 +18,7 @@ import { EmptyPipe } from '@global_packages/pipes/empty-pipe'
 import { InitialsPipe } from '@global_packages/pipes/initials.pipe'
 import { AvatarPlaceholderComponent } from 'app/components/placeholder/avatar-placeholder/avatar-placeholder.component'
 import { AnimateJsDirective } from '@global_packages/directives/animate.js.directive'
+import { HasScorePipe } from 'app/app-core/pipes/has-score.pipe'
 
 const components = [PageHeaderComponent, AvatarPlaceholderComponent]
 
@@ -39,7 +40,7 @@ const modules = [
 	HttpClientModule,
 ]
 
-const pipes = [HasDataPipe, EmptyPipe, InitialsPipe]
+const pipes = [HasDataPipe, EmptyPipe, InitialsPipe, HasScorePipe]
 
 const directives = [AnimateJsDirective]
 

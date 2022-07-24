@@ -83,3 +83,23 @@ export function toFixedTwo(value: number): string {
 export function toSentenceCase(string: string) {
 	return string.charAt(0).toUpperCase() + string.slice(1)
 }
+
+export function toNegativeScore(score: number): number {
+	if (score === 5) {
+		return 1
+	}
+
+	if (score === 4) {
+		return 2
+	}
+
+	if (score === 2) {
+		return 4
+	}
+
+	if (score === 1) {
+		return 5
+	}
+
+	return score
+}
