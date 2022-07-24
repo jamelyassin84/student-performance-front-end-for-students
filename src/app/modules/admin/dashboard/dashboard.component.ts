@@ -1,13 +1,26 @@
 import { StudentService } from 'app/app-core/services/student.service'
 import { Component, OnInit } from '@angular/core'
+import { SurveyPerformanceService } from 'app/app-core/store/performance/performance.service'
+import { StudentPerformance } from 'app/app-core/store/performance/performance.model'
+import { take } from 'rxjs'
+import { toImplicitRating } from '@global_packages/helpers/helpers'
+import { dbwAnimations } from '@global_packages/animations/animation.api'
 
 @Component({
 	selector: 'app-dashboard',
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.scss'],
+	animations: [...dbwAnimations],
 })
 export class DashboardComponent implements OnInit {
-	constructor(private _studentService: StudentService) {}
+	constructor(
+		private _studentService: StudentService,
+		private _surveyPerformanceService: SurveyPerformanceService,
+	) {}
+
+	performances: StudentPerformance[] = []
+
+	averagePerformance: number = 0
 
 	student$ = this._studentService.student$
 
@@ -50,8 +63,6 @@ export class DashboardComponent implements OnInit {
 			{
 				name: '1',
 				data: [
-					{ x: '1st Yr - 1st Sem', y: [0] },
-					{ x: '1st Yr - 2nd Sem', y: [0] },
 					{ x: '2nd Yr - 1st Sem', y: [0] },
 					{ x: '2nd Yr - 2nd Sem', y: [0] },
 					{ x: '3rd Yr - 1st Sem', y: [0] },
@@ -102,5 +113,44 @@ export class DashboardComponent implements OnInit {
 		},
 	}
 
-	ngOnInit(): void {}
+	SPLIT_VALUE = ' - '
+
+	ngOnInit(): void {
+		this.getPerformances()
+	}
+
+	identity = (item: any) => item
+
+	getPerformances() {
+		this._studentService.student$.pipe(take(1)).subscribe((student) => {
+			this._surveyPerformanceService
+				.query(`?student_id=${student.id}`)
+				.subscribe((performances: StudentPerformance[]) => {
+					let total = 0
+
+					performances.forEach((performance) => {
+						this.chart.series[0].data.forEach((dataset, datasetIndex) => {
+							if (
+								`${performance.year_level} Yr${this.SPLIT_VALUE}${performance.semester} Sem` ===
+								dataset.x
+							) {
+								this.chart.series[0].data[datasetIndex].y = [
+									performance.performance,
+								]
+							}
+						})
+
+						total += performance.performance
+					})
+
+					this.averagePerformance = total / performances.length
+
+					this.performances = performances
+				})
+		})
+	}
+
+	toImplicitRating(performance: number) {
+		return toImplicitRating(performance)
+	}
 }

@@ -10,9 +10,13 @@
 
 	<div class="flex flex-col w-full bg-white mt-10 drop-shadow-md p-10">
 		<div class="font-bold text-xl mb-2">Psychometric performance Summary</div>
-		<div class="text-gray-500 mb-10">Your average performance is 80</div>
+		<div class="text-gray-500 mb-10">
+			Your average performance is {{ averagePerformance }}%
+		</div>
 
 		<apx-chart
+			@slideInBottom
+			*ngIf="performances.length !== 0"
 			class="flex-auto w-full h-80"
 			[chart]="chart.chart"
 			[colors]="chart.colors"
