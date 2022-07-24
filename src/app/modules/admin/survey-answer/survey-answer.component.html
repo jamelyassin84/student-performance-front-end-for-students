@@ -103,6 +103,12 @@
 
 					<div class="grid grid-cols-3 gap-10 mt-10">
 						<button
+							[ngClass]="{
+								'pointer-events-none bg-yellow-500': hasRated(
+									question,
+									ratingIndex + 1
+								)
+							}"
 							(click)="setScore(question, ratingIndex)"
 							*ngFor="
 								let rating of ratings;
@@ -132,10 +138,8 @@
 							(click)="onNext(formIndex, form)"
 							[ngClass]="{
 								'ml-auto': questionIndex === 0,
-								'bg-gray-500 pointer-events-none': !(
-									results | has_score: question
-								),
-								'bg-blue-800': (results | has_score: question)
+								'bg-gray-500 pointer-events-none': !hasAnswered(question),
+								'bg-blue-800': hasAnswered(question)
 							}"
 							class="mt-10 font-extrabold bg-blue-800 text-white px-10 py-3 flex items-center hover:bg-blue-900"
 						>

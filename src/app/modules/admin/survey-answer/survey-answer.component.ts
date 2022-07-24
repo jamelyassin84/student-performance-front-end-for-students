@@ -38,7 +38,7 @@ export class SurveyAnswerComponent implements OnInit {
 	]
 
 	form: FormGroup = this._formBuilder.group({
-		year_level: ['1st', [Validators.required]],
+		year_level: ['2nd', [Validators.required]],
 		semester: ['1st', [Validators.required]],
 		performance: [0, [Validators.required]],
 	})
@@ -125,6 +125,71 @@ export class SurveyAnswerComponent implements OnInit {
 	}
 
 	save() {
-		alert('Survey Submitted. Please check your performance on survey results.')
+		let performances = []
+
+		let performance = 0
+
+		for (let result of this.results) {
+			let averageFormPerformance = 0
+
+			let score = 0
+
+			for (let array of result) {
+				score += array.score
+			}
+
+			averageFormPerformance = score / result.length
+
+			performances.push(averageFormPerformance)
+		}
+
+		let formRating = 0
+
+		performances.forEach((rating) => {
+			formRating += rating
+		})
+
+		performance = (formRating / this.results.length) * 20
+
+		this.form.get('performance').setValue(performance)
+
+		alert(`Survey Submitted. Your score is ${performance}%.`)
+	}
+
+	hasAnswered(question: SurveyQuestion): boolean {
+		let hasScore = false
+
+		for (let result of this.results) {
+			for (let array of result) {
+				if (array.score !== 0 && array.question === question.title) {
+					hasScore = true
+
+					break
+				}
+			}
+		}
+
+		return hasScore
+	}
+
+	hasRated(question: SurveyQuestion, rating: number): boolean {
+		let hasRated = false
+
+		let index =
+			question.question_value_type === 'negative'
+				? toNegativeScore(rating)
+				: rating
+
+		for (let result of this.results) {
+			for (let array of result) {
+				if (array.score !== 0 && array.question === question.title) {
+					if (array.score === index) {
+						hasRated = true
+					}
+				}
+			}
+		}
+
+		return hasRated
 	}
 }

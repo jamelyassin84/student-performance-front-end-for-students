@@ -1,6 +1,13 @@
 export const SEMESTERS = ['1st', '2nd', '3rd']
 
-export const YEAR_LEVELS = ['1st', '2nd', '3rd', '4th', '5th']
+export const YEAR_LEVELS = [
+	// '1st',
+
+	'2nd',
+	'3rd',
+	'4th',
+	'5th',
+]
 
 export const DEGREES = [
 	'Bachelor of Arts',

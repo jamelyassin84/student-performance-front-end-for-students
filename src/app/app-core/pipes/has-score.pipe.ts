@@ -8,11 +8,13 @@ export class HasScorePipe implements PipeTransform {
 	transform(results: any, question: SurveyQuestion): boolean {
 		let hasScore = false
 
-		for (let array of results) {
-			if (array.score !== 0 && array.question === question.title) {
-				hasScore = true
+		for (let result of results) {
+			for (let array of result) {
+				if (array.score !== 0 && array.question === question.title) {
+					hasScore = true
 
-				break
+					break
+				}
 			}
 		}
 

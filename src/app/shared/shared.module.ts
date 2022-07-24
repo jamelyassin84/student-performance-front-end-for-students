@@ -19,6 +19,7 @@ import { InitialsPipe } from '@global_packages/pipes/initials.pipe'
 import { AvatarPlaceholderComponent } from 'app/components/placeholder/avatar-placeholder/avatar-placeholder.component'
 import { AnimateJsDirective } from '@global_packages/directives/animate.js.directive'
 import { HasScorePipe } from 'app/app-core/pipes/has-score.pipe'
+import { HasRatedDirective } from 'app/app-core/directives/has-rated.directive'
 
 const components = [PageHeaderComponent, AvatarPlaceholderComponent]
 
@@ -42,7 +43,7 @@ const modules = [
 
 const pipes = [HasDataPipe, EmptyPipe, InitialsPipe, HasScorePipe]
 
-const directives = [AnimateJsDirective]
+const directives = [AnimateJsDirective, HasRatedDirective]
 
 @NgModule({
 	declarations: [...components, ...pipes, ...directives],
