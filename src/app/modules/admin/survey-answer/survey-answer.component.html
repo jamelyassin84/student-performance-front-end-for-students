@@ -6,161 +6,149 @@
 		icon="mat_outline:drive_file_rename_outline"
 	></page-header>
 
-	<div
-		@slideInBottom
-		*ngIf="showSubmitSurvey"
-		[formGroup]="form"
-		class="grid grid-cols-5 items-center gap-10 p-10"
-	>
-		<mat-form-field class="w-full">
-			<mat-label>Year Level</mat-label>
-
-			<mat-select formControlName="year_level">
-				<mat-option
-					[value]="item"
-					*ngFor="let item of YEAR_LEVELS; trackBy: identity"
-					>{{ item }}</mat-option
-				>
-			</mat-select>
-		</mat-form-field>
-
-		<mat-form-field class="w-full">
-			<mat-label>Last Semester Enrolled</mat-label>
-
-			<mat-select formControlName="semester">
-				<mat-option
-					[value]="item"
-					*ngFor="let item of SEMESTERS; trackBy: identity"
-					>{{ item }}</mat-option
-				>
-			</mat-select>
-		</mat-form-field>
-	</div>
-
-	<div
-		class="bg-sky-50 text-sky-500 rounded-md border border-sky-400 md:w-1/2 m-10 p-5"
-	>
-		I am aware that this survey is duty bound and obligated under the RA No.
-		10173 or Data Privacy Act of 2012 to protect all my personal, private and
-		sensitive information. I am also willing to give my answers to this survey
-		with complete honesty and integrity.
-
-		<div @slideInBottom *ngIf="showSubmitSurvey">
-			<button
-				[ngClass]="{
-					'bg-blue-800': form.valid && !form.disabled,
-					'bg-gray-500': form.disabled || !form.valid
-				}"
-				class="fuse-mat-button-large w-full mt-3 flex text-white py-3 font-bold hover:bg-blue-900 items-center justify-center"
-				[disabled]="form.disabled || !form.valid"
-				(click)="save()"
-			>
-				<span *ngIf="!form.disabled">Submit Survey </span>
-
-				<mat-progress-spinner
-					*ngIf="form.disabled"
-					[diameter]="24"
-					[mode]="'indeterminate'"
-				></mat-progress-spinner>
-			</button>
-		</div>
-	</div>
-
-	<div *ngIf="currentForm && !showSubmitSurvey">
+	<div class="flex items-center justify-center w-full bg-gray-50">
 		<div
-			@slideInBottom
-			[ngClass]="{ hidden: currentForm.id !== form.id }"
-			*ngFor="let form of forms; trackBy: identity; let formIndex = index"
-			class="grid grid-cols-2 items-center p-10 gap-y-0"
-			style="min-height: 79vh"
+			class="flex flex-col items-center justify-center w-full max-w-screen-md bg-white border border-gray-50 px-10"
 		>
-			<div class="col-span-2 text-4xl font-extrabold">
-				{{ form.name }}
+			<div
+				@slideInBottom
+				*ngIf="showSubmitSurvey"
+				[formGroup]="form"
+				class="grid grid-cols-2 items-center gap-10 py-10 w-full"
+			>
+				<mat-form-field class="w-full">
+					<mat-label>Year Level</mat-label>
+
+					<mat-select formControlName="year_level">
+						<mat-option
+							[value]="item"
+							*ngFor="let item of YEAR_LEVELS; trackBy: identity"
+							>{{ item }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
+
+				<mat-form-field class="w-full">
+					<mat-label>Last Semester Enrolled</mat-label>
+
+					<mat-select formControlName="semester">
+						<mat-option
+							[value]="item"
+							*ngFor="let item of SEMESTERS; trackBy: identity"
+							>{{ item }}</mat-option
+						>
+					</mat-select>
+				</mat-form-field>
 			</div>
 
-			<div class="col-span-1">
-				<!-- animateJs
-					animation="animate__slideInLeft" -->
-				<div
-					@slideInLeft
-					[class.hidden]="currentQuestion.id !== question.id"
-					class="bg-white shadow-2xl shadow-blue-50 border border-gray-200 rounded-md p-5 py-10 flex flex-col animate__faster"
-					*ngFor="
-						let question of form.questions;
-						trackBy: identity;
-						let questionIndex = index
-					"
-				>
-					<div class="text-3xl font-bold flex items-center">
-						Question ({{ questionIndex + 1 }}) out of
-						{{ form.questions.length }}
-					</div>
+			<div
+				class="bg-sky-50 text-sky-500 rounded-md border border-sky-400 my-10 p-5 w-full"
+			>
+				I am aware that this survey is duty bound and obligated under the RA No.
+				10173 or Data Privacy Act of 2012 to protect all my personal, private
+				and sensitive information. I am also willing to give my answers to this
+				survey with complete honesty and integrity.
 
-					<div class="text-lg flex items-center text-gray-400">
-						<mat-icon class="mr-2 text-gray-400" svgIcon="info"></mat-icon>
-						{{ question.question }}
-					</div>
+				<div @slideInBottom *ngIf="showSubmitSurvey">
+					<button
+						[ngClass]="{
+							'bg-blue-800': form.valid && !form.disabled,
+							'bg-gray-500': form.disabled || !form.valid
+						}"
+						class="fuse-mat-button-large w-full mt-3 flex text-white py-3 font-bold hover:bg-blue-900 items-center justify-center"
+						[disabled]="form.disabled || !form.valid"
+						(click)="save()"
+					>
+						<span *ngIf="!form.disabled">Submit Survey </span>
 
-					<div class="grid grid-cols-3 gap-10 mt-10">
-						<button
-							[ngClass]="{
-								'pointer-events-none bg-yellow-500': hasRated(
-									question,
-									ratingIndex + 1
-								)
-							}"
-							(click)="setScore(question, ratingIndex)"
-							*ngFor="
-								let rating of ratings;
-								trackBy: identity;
-								let ratingIndex = index
-							"
-							class="border text-sm p-5 hover:bg-yellow-500 hover:text-white hover:border-transparent"
-						>
-							{{ rating }}
-						</button>
-					</div>
-
-					<div class="flex">
-						<button
-							*ngIf="questionIndex !== 0"
-							(click)="currentQuestion = form.questions[questionIndex - 1]"
-							class="mt-10 ml-auto font-extrabold px-10 py-3 flex items-center hover:bg-gray-50 border"
-						>
-							<mat-icon
-								class="mr-2 text-black"
-								svgIcon="heroicons_solid:arrow-left"
-							></mat-icon>
-							Back
-						</button>
-
-						<button
-							(click)="onNext(formIndex, form)"
-							[ngClass]="{
-								'ml-auto': questionIndex === 0,
-								'bg-gray-500 pointer-events-none': !hasAnswered(question),
-								'bg-blue-800': hasAnswered(question)
-							}"
-							class="mt-10 font-extrabold bg-blue-800 text-white px-10 py-3 flex items-center hover:bg-blue-900"
-						>
-							Next
-
-							<mat-icon
-								class="ml-2 text-white"
-								svgIcon="heroicons_solid:arrow-right"
-							></mat-icon>
-						</button>
-					</div>
+						<mat-progress-spinner
+							*ngIf="form.disabled"
+							[diameter]="24"
+							[mode]="'indeterminate'"
+						></mat-progress-spinner>
+					</button>
 				</div>
 			</div>
 
-			<div>
-				<img
-					class="w-full object-contain"
-					style="max-height: 50vh"
-					src="/assets/app/survey-form/grit.svg"
-					alt="grit image"
-				/>
+			<div class="w-full" *ngIf="currentForm && !showSubmitSurvey">
+				<div class="flex flex-wrap">
+					<div
+						[ngClass]="{
+							'opacity-20 pointer-events-none': currentForm.id !== form.id
+						}"
+						*ngFor="let form of forms; trackBy: identity; let formIndex = index"
+						class="flex-1"
+					>
+						<div class="text-4xl font-extrabold">
+							{{ form.name }}
+						</div>
+
+						<div class="text-xl text-gray-500 mb-2">
+							{{ form.description }}
+						</div>
+					</div>
+				</div>
+
+				<div
+					[ngClass]="{ hidden: currentForm.id !== form.id }"
+					*ngFor="let form of forms; trackBy: identity; let formIndex = index"
+					class="items-center w-full"
+					style="min-height: 79vh"
+				>
+					<div [@listAnimation]="form.questions.length" class="w-full">
+						<div
+							class="bg-white rounded-md p-5 py-10 pt-5 flex flex-col animate__faster border-t border-t-gray-200"
+							*ngFor="
+								let question of form.questions;
+								trackBy: identity;
+								let questionIndex = index
+							"
+						>
+							<div class="items-center -ml-5 mb-4">
+								{{ questionIndex + 1 }}) {{ question.title }}
+							</div>
+
+							<div class="text-lg flex items-center font-bold -ml-5">
+								<mat-icon
+									class="mr-2 text-sky-400 icon-size-7"
+									svgIcon="info"
+								></mat-icon>
+								{{ question.question }}
+							</div>
+
+							<mat-radio-group
+								class="grid grid-cols-5 mt-10"
+								aria-label="Select an option"
+							>
+								<mat-radio-button
+									(click)="setScore(question, ratingIndex)"
+									*ngFor="
+										let rating of ratings;
+										trackBy: identity;
+										let ratingIndex = index
+									"
+									[value]="ratingIndex + 1"
+									class="text-gray-500"
+								>
+									{{ rating }}</mat-radio-button
+								>
+							</mat-radio-group>
+						</div>
+					</div>
+
+					<div>
+						<button
+							[ngClass]="{
+								'bg-gray-400 pointer-events-none': !hasFormAnswered(form),
+								'bg-sky-500 text-xl hover:bg-sky-600': hasFormAnswered(form)
+							}"
+							(click)="onNext(formIndex, form)"
+							class="py-3 w-full rounded-lg text-white"
+						>
+							{{ forms.length - 1 === formIndex ? 'Done' : 'Next' }}
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

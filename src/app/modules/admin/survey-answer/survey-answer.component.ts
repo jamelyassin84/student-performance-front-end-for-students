@@ -73,7 +73,7 @@ export class SurveyAnswerComponent implements OnInit {
 					let score = []
 
 					form.questions.forEach((question) => {
-						score.push({ question: question.title, score: 0 })
+						score.push({ question: question.id, score: 0 })
 					})
 
 					this.results.push(score)
@@ -89,30 +89,13 @@ export class SurveyAnswerComponent implements OnInit {
 	identity = (item: any) => item
 
 	onNext(formIndex: number, form: SurveyForm) {
-		const questionIndex = this.forms[formIndex].questions.findIndex(
-			(question) => question.id === this.currentQuestion.id,
-		)
-
-		if (
-			questionIndex === this.currentForm.questions.length - 1 &&
-			formIndex === this.forms.length - 1
-		) {
+		if (formIndex === this.forms.length - 1) {
 			this.showSubmitSurvey = true
 
 			return
 		}
 
-		if (questionIndex === this.currentForm.questions.length - 1) {
-			this.currentForm = this.forms[formIndex + 1]
-
-			if (hasData(this.forms[formIndex + 1].questions)) {
-				this.currentQuestion = this.forms[formIndex + 1].questions[0]
-			}
-
-			return
-		}
-
-		this.currentQuestion = form.questions[questionIndex + 1]
+		this.currentForm = this.forms[formIndex + 1]
 	}
 
 	setScore(question: SurveyQuestion, index: number) {
@@ -121,7 +104,7 @@ export class SurveyAnswerComponent implements OnInit {
 		})
 
 		const resultIndex = this.results[formIndex].findIndex((result) => {
-			return result.question.toString() === question.title.toString()
+			return result.question.toString() === question.id.toString()
 		})
 
 		if (question.question_value_type === 'positive') {
@@ -174,12 +157,26 @@ export class SurveyAnswerComponent implements OnInit {
 		})
 	}
 
+	hasFormAnswered(form: SurveyForm): boolean {
+		for (let result of this.results) {
+			for (let array of result) {
+				for (let question of form.questions) {
+					if (array.score === 0 && question.id === array.question) {
+						return false
+					}
+				}
+			}
+		}
+
+		return true
+	}
+
 	hasAnswered(question: SurveyQuestion): boolean {
 		let hasScore = false
 
 		for (let result of this.results) {
 			for (let array of result) {
-				if (array.score !== 0 && array.question === question.title) {
+				if (array.score !== 0 && array.question === question.id) {
 					hasScore = true
 
 					break

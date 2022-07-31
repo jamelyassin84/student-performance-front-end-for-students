@@ -20,6 +20,7 @@ import { AvatarPlaceholderComponent } from 'app/components/placeholder/avatar-pl
 import { AnimateJsDirective } from '@global_packages/directives/animate.js.directive'
 import { HasScorePipe } from 'app/app-core/pipes/has-score.pipe'
 import { HasRatedDirective } from 'app/app-core/directives/has-rated.directive'
+import { MatRadioModule } from '@angular/material/radio'
 
 const components = [PageHeaderComponent, AvatarPlaceholderComponent]
 
@@ -39,6 +40,7 @@ const modules = [
 	MatSelectModule,
 	NgApexchartsModule,
 	HttpClientModule,
+	MatRadioModule,
 ]
 
 const pipes = [HasDataPipe, EmptyPipe, InitialsPipe, HasScorePipe]
