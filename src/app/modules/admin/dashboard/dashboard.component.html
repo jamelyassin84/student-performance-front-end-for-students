@@ -8,29 +8,40 @@
 		></page-header>
 	</div>
 
-	<div class="flex flex-col w-full bg-white mt-10 drop-shadow-md p-10">
-		<div class="font-bold text-xl mb-2">Psychometric performance Summary</div>
-		<div class="text-gray-500 mb-10">
-			Your average performance is {{ averagePerformance }}%
+	<div class="grid grid-cols-2">
+		<div class="flex flex-col w-full bg-white mt-10 drop-shadow-md p-10">
+			<div class="font-bold text-xl mb-2">Psychometric performance Summary</div>
+
+			<apx-chart
+				@slideInBottom
+				*ngIf="performances.length !== 0"
+				class="flex-auto w-full h-80"
+				[chart]="chart.chart"
+				[colors]="chart.colors"
+				[dataLabels]="chart.dataLabels"
+				[grid]="chart.grid"
+				[labels]="chart.labels"
+				[legend]="chart.legend"
+				[plotOptions]="chart.plotOptions"
+				[series]="chart.series"
+				[states]="chart.states"
+				[stroke]="chart.stroke"
+				[tooltip]="chart.tooltip"
+				[xaxis]="chart.xaxis"
+				[yaxis]="chart.yaxis"
+			></apx-chart>
 		</div>
 
-		<apx-chart
-			@slideInBottom
-			*ngIf="performances.length !== 0"
-			class="flex-auto w-full h-80"
-			[chart]="chart.chart"
-			[colors]="chart.colors"
-			[dataLabels]="chart.dataLabels"
-			[grid]="chart.grid"
-			[labels]="chart.labels"
-			[legend]="chart.legend"
-			[plotOptions]="chart.plotOptions"
-			[series]="chart.series"
-			[states]="chart.states"
-			[stroke]="chart.stroke"
-			[tooltip]="chart.tooltip"
-			[xaxis]="chart.xaxis"
-			[yaxis]="chart.yaxis"
-		></apx-chart>
+		<div class="flex flex-col w-full bg-white mt-10 drop-shadow-md p-10">
+			<div class="font-bold text-xl mb-2">Psychometric performance Summary</div>
+			<div class="text-gray-500 mb-10">Survey Distribution</div>
+
+			<apx-chart
+				[series]="pie.series"
+				[chart]="pie.chart"
+				[labels]="pie.labels"
+				[responsive]="pie.responsive"
+			></apx-chart>
+		</div>
 	</div>
 </div>

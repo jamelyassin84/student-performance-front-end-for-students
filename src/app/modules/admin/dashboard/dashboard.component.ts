@@ -3,8 +3,10 @@ import { Component, OnInit } from '@angular/core'
 import { SurveyPerformanceService } from 'app/app-core/store/performance/performance.service'
 import { StudentPerformance } from 'app/app-core/store/performance/performance.model'
 import { take } from 'rxjs'
-import { toImplicitRating } from '@global_packages/helpers/helpers'
+import { toImplicitRating, toNotNan } from '@global_packages/helpers/helpers'
 import { dbwAnimations } from '@global_packages/animations/animation.api'
+import { RecordsService } from 'app/app-core/store/records/records.service'
+import { Record } from 'app/app-core/store/records/records.model'
 
 @Component({
 	selector: 'app-dashboard',
@@ -16,6 +18,7 @@ export class DashboardComponent implements OnInit {
 	constructor(
 		private _studentService: StudentService,
 		private _surveyPerformanceService: SurveyPerformanceService,
+		private _recordsService: RecordsService,
 	) {}
 
 	performances: StudentPerformance[] = []
@@ -113,13 +116,79 @@ export class DashboardComponent implements OnInit {
 		},
 	}
 
+	pie = {
+		series: [],
+		chart: {
+			width: 580,
+			type: 'pie',
+		},
+		labels: [],
+		responsive: [
+			{
+				breakpoint: 480,
+				options: {
+					chart: {
+						width: 200,
+					},
+					legend: {
+						position: 'bottom',
+					},
+				},
+			},
+		],
+	}
+
 	SPLIT_VALUE = ' - '
 
 	ngOnInit(): void {
 		this.getPerformances()
+		this.getRecords()
 	}
 
 	identity = (item: any) => item
+
+	getRecords() {
+		this._studentService.student$.pipe(take(1)).subscribe((student) => {
+			this._recordsService
+				.findOne(student.id)
+				.subscribe((records: Record[]) => {
+					let semester = records[1].semester
+
+					let year_level = records[1].year_level
+
+					let labels = []
+
+					let series = []
+
+					records.forEach((record) => {
+						let total = 0
+						if (
+							record.semester === semester &&
+							record.year_level === year_level
+						) {
+							if (!labels.includes(record.survey_form.name)) {
+								labels.push(`${record.survey_form.name}`)
+							}
+
+							total += record.score
+						}
+
+						series.push(
+							total /
+								records.filter(
+									(latestRecord) =>
+										latestRecord.semester === semester &&
+										latestRecord.year_level === year_level,
+								).length,
+						)
+					})
+
+					this.pie.labels = labels
+
+					this.pie.series = series
+				})
+		})
+	}
 
 	getPerformances() {
 		this._studentService.student$.pipe(take(1)).subscribe((student) => {
@@ -142,10 +211,11 @@ export class DashboardComponent implements OnInit {
 
 						total += performance.performance
 					})
+					if (performances.length !== 0) {
+						this.averagePerformance = total / performances.length
 
-					this.averagePerformance = total / performances.length
-
-					this.performances = performances
+						this.performances = performances
+					}
 				})
 		})
 	}

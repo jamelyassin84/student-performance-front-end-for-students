@@ -41,6 +41,7 @@ export interface Student extends PHPBaseModel {
 	major: string
 	address: string
 	user_id: string
+	id_number: string
 }
 
 export interface User extends PHPBaseModel {

@@ -196,3 +196,11 @@ export function toImplicitRating(rating: number): {
 		}
 	}
 }
+
+export function toNotNan(value: number): number {
+	if (value === NaN) {
+		return 0
+	}
+
+	return value
+}

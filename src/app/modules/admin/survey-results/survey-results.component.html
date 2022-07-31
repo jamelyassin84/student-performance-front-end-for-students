@@ -19,6 +19,21 @@
 			</div>
 
 			<div>
+				GPA:
+				<a
+					(click)="requestGuidanceConsultation(performance)"
+					role="button"
+					*ngIf="performance.gpa === 0"
+					class="text-amber-500 ml-1 hover:underline"
+					>Request Guidance Consultation</a
+				>
+
+				<span *ngIf="performance.gpa !== 0" class="font-bold ml-1">{{
+					performance.gpa
+				}}</span>
+			</div>
+
+			<div>
 				Status:
 				<span class="font-bold ml-1">{{
 					toImplicitRating(performance.performance).title

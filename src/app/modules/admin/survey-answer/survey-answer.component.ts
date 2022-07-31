@@ -30,7 +30,6 @@ export class SurveyAnswerComponent implements OnInit {
 		private _surveyPerformanceService: SurveyPerformanceService,
 		private _studentService: StudentService,
 		private _recordsService: RecordsService,
-		private _guidanceRequestService: GuidanceRequestService,
 	) {}
 
 	SEMESTERS = SEMESTERS
@@ -177,19 +176,14 @@ export class SurveyAnswerComponent implements OnInit {
 					student_id: student.id,
 					gpa: 0,
 				}),
-				this._guidanceRequestService.post({
-					...this.form.value,
-					student_id: student.id,
-					survey_form_id: 0,
-					question_id: 0,
-				}),
+
 				this._recordsService.post({ data: records }),
 			])
 				.pipe(take(1))
 				.subscribe((results) => {
-					const [performance, guidance_request, records] = results
+					const [performance, records] = results
 
-					if (performance && guidance_request && records) {
+					if (performance && records) {
 						alert(
 							`Survey Submitted. Keep track of your scores in survey results.`,
 						)
