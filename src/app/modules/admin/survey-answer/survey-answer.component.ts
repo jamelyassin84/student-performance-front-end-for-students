@@ -1,3 +1,4 @@
+import { GuidanceRequestService } from './../../../app-core/store/guidance-request/guidance-request.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { dbwAnimations } from '@global_packages/animations/animation.api'
@@ -12,7 +13,9 @@ import { SurveyFormService } from 'app/app-core/store/form/form.service'
 import { SurveyQuestion } from 'app/app-core/store/questions/questions.model'
 import { SurveyPerformanceService } from 'app/app-core/store/performance/performance.service'
 import { StudentService } from 'app/app-core/services/student.service'
-import { take } from 'rxjs'
+import { combineLatest, take } from 'rxjs'
+import { Record } from 'app/app-core/store/records/records.model'
+import { RecordsService } from 'app/app-core/store/records/records.service'
 
 @Component({
 	selector: 'app-survey-answer',
@@ -26,6 +29,8 @@ export class SurveyAnswerComponent implements OnInit {
 		private _surveyFormService: SurveyFormService,
 		private _surveyPerformanceService: SurveyPerformanceService,
 		private _studentService: StudentService,
+		private _recordsService: RecordsService,
+		private _guidanceRequestService: GuidanceRequestService,
 	) {}
 
 	SEMESTERS = SEMESTERS
@@ -73,7 +78,11 @@ export class SurveyAnswerComponent implements OnInit {
 					let score = []
 
 					form.questions.forEach((question) => {
-						score.push({ question: question.id, score: 0 })
+						score.push({
+							question: question.id,
+							score: 0,
+							survey_form_id: question.survey_form_id,
+						})
 					})
 
 					this.results.push(score)
@@ -113,46 +122,80 @@ export class SurveyAnswerComponent implements OnInit {
 			this.results[formIndex][resultIndex].score =
 				toNegativeScore(index + 1) * 20
 		}
-
-		console.log(this.results)
 	}
 
 	save() {
-		let performances = []
+		this._studentService.student$.pipe(take(1)).subscribe((student) => {
+			let records: Record[] = []
 
-		let performance = 0
+			let performances = []
 
-		for (let result of this.results) {
-			let averageFormPerformance = 0
+			let performance = 0
 
-			let score = 9
+			for (let result of this.results) {
+				let averageFormPerformance = 0
 
-			for (let array of result) {
-				score += array.score
+				let score = 9
+
+				for (let array of result as {
+					question: string
+					score: number
+					survey_form_id: string
+				}[]) {
+					const { year_level, semester } = this.form.value
+
+					records.push({
+						question_id: array.question,
+						score: array.score,
+						survey_form_id: array.survey_form_id,
+						year_level: year_level,
+						semester: semester,
+						student_id: student.id,
+					})
+
+					score += array.score
+				}
+
+				averageFormPerformance = score / result.length
+
+				performances.push(averageFormPerformance)
 			}
 
-			averageFormPerformance = score / result.length
+			let formRating = 0
 
-			performances.push(averageFormPerformance)
-		}
+			performances.forEach((rating) => {
+				formRating += rating
+			})
 
-		let formRating = 0
+			performance = formRating / this.results.length
 
-		performances.forEach((rating) => {
-			formRating += rating
-		})
+			this.form.get('performance').setValue(performance)
 
-		performance = formRating / this.results.length
+			combineLatest([
+				this._surveyPerformanceService.post({
+					...this.form.value,
+					student_id: student.id,
+					gpa: 0,
+				}),
+				this._guidanceRequestService.post({
+					...this.form.value,
+					student_id: student.id,
+					survey_form_id: 0,
+					question_id: 0,
+				}),
+				this._recordsService.post({ data: records }),
+			])
+				.pipe(take(1))
+				.subscribe((results) => {
+					const [performance, guidance_request, records] = results
 
-		this.form.get('performance').setValue(performance)
+					if (performance && guidance_request && records) {
+						alert(
+							`Survey Submitted. Keep track of your scores in survey results.`,
+						)
 
-		this._studentService.student$.pipe(take(1)).subscribe((student) => {
-			this._surveyPerformanceService
-				.post({ ...this.form.value, student_id: student.id })
-				.subscribe((performance) => {
-					alert(
-						`Survey Submitted. Keep track of your scores in survey results.`,
-					)
+						location.reload()
+					}
 				})
 		})
 	}

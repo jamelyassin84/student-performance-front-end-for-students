@@ -184,7 +184,7 @@ export function toImplicitRating(rating: number): {
 		}
 	}
 
-	if (rating >= 60) {
+	if (rating <= 60) {
 		return {
 			title: 'Dont give up Hang in there,champ!',
 			recommendations: [
@@ -194,10 +194,5 @@ export function toImplicitRating(rating: number): {
 				'take & review your notes',
 			],
 		}
-	}
-
-	return {
-		title: 'Excellent',
-		recommendations: ['1', '2'],
 	}
 }
