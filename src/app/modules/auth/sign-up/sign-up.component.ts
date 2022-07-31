@@ -6,7 +6,13 @@ import {
 	DEPARTMENTS1,
 } from './../../../app-core/constants/app.constants'
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core'
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms'
+import {
+	AbstractControl,
+	FormBuilder,
+	FormGroup,
+	NgForm,
+	Validators,
+} from '@angular/forms'
 import { Router } from '@angular/router'
 import { fuseAnimations } from '@fuse/animations'
 import { FuseAlertType } from '@fuse/components/alert'
@@ -53,8 +59,10 @@ export class AuthSignUpComponent implements OnInit {
 		this.signUpForm = this._formBuilder.group({
 			name: ['', Validators.required],
 			email: ['', [Validators.required, Validators.email]],
-			password: ['', Validators.required],
-			confirm_password: ['', Validators.required],
+			id_number: [
+				'',
+				[Validators.required, Validators.minLength(8), Validators.maxLength(8)],
+			],
 			sex: ['Male'],
 			phone: ['', Validators.required],
 			department: [DEPARTMENTS[0], Validators.required],
@@ -64,6 +72,12 @@ export class AuthSignUpComponent implements OnInit {
 			address: ['', Validators.required],
 			agreements: ['', Validators.requiredTrue],
 		})
+	}
+
+	validateCPUEmail(value: string) {
+		console.log(value.toLocaleLowerCase().includes('cpu.edu.ph') ? false : true)
+
+		return value.toLocaleLowerCase().includes('cpu.edu.ph') ? false : true
 	}
 
 	onDepartmentChange(data: string) {

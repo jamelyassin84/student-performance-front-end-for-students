@@ -1,74 +1,12 @@
-Student Registration
-	Email 
-	Name
-	Department
-	Course
-	Address
-	Photo
-	Password
-	Confirm Password
-
-Student Login
-
-Answer Survey
-	Year
-	Last Semester Enrolled
-	Grade
-	
-	Survey From
-	
-View Survey Results	
-	Year 
-	Semester
-	Result Survey
-
-Dashboard
-	Chart performance results year and semester
-
-	*Predict student grades
-
-View Recommendations
-	LEssen or improve Study Hard
-
-	
-
-
-----------------
+Student
+Pie Chart
+10 questions per page
+progress for each questions
+ID number instead of password
+Consultation in every survey
+Survey record question and score
 
 Admin
-
-Login
-
-List of Students
-	View Particular Student
-		Delete 
-		Update
-		Year and Semester
-			Performance
-    Customize Survey Form
-
-    Add Parent, isActive
-        name,
-        question,
-        isPositive
-        isRadio
-        Parent
-        isActive
-    
-
-
-Dashboard
-	Top Performing Students- Sort by degrees, course, department, range sang grade
-	
-	Best Psychometric perfomance based on top students
-
-	Candidate for best performing student using psychometric behaviors
-
-
-	
-
-
-
-
-	
-	
+Guidance to put gpa semester and year level
+Survey record question and score
+Decision Tree and SVM
