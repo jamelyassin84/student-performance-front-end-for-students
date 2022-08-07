@@ -5,4 +5,5 @@ export interface StudentPerformance extends PHPBaseModel {
 	semester: '1st' | '2nd' | '3rd'
 	performance: number
 	student_id: string
+	has_requested: boolean
 }

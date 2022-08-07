@@ -40,9 +40,17 @@ export class SurveyResultsComponent implements OnInit {
 	requestGuidanceConsultation(performance: StudentPerformance) {
 		this._studentService.student$.pipe(take(1)).subscribe((student) => {
 			this._guidanceRequestService
-				.post({ ...performance, student_id: student.id })
+				.post({ ...performance, student_id: student.id, has_requested: true })
 				.subscribe(() => {
 					alert('You have an appointment for guidance consultation')
+
+					const index = this.performances.findIndex(
+						(oldPerformance) => performance.id === oldPerformance.id,
+					)
+
+					if (index >= 0) {
+						this.performances[index] = { ...performance, has_requested: true }
+					}
 				})
 		})
 	}
