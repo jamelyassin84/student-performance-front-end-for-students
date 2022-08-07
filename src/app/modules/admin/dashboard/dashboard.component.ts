@@ -183,9 +183,9 @@ export class DashboardComponent implements OnInit {
 						)
 					})
 
-					this.pie.labels = labels
+					this.pie.labels = [...new Set(labels)]
 
-					this.pie.series = series
+					this.pie.series = [...new Set(series)]
 				})
 		})
 	}

@@ -16,6 +16,7 @@ import { StudentService } from 'app/app-core/services/student.service'
 import { combineLatest, take } from 'rxjs'
 import { Record } from 'app/app-core/store/records/records.model'
 import { RecordsService } from 'app/app-core/store/records/records.service'
+import { ScrollService } from '@global_packages/services/scroll.service'
 
 @Component({
 	selector: 'app-survey-answer',
@@ -26,10 +27,11 @@ import { RecordsService } from 'app/app-core/store/records/records.service'
 export class SurveyAnswerComponent implements OnInit {
 	constructor(
 		private _formBuilder: FormBuilder,
+		private _scrollService: ScrollService,
+		private _recordsService: RecordsService,
+		private _studentService: StudentService,
 		private _surveyFormService: SurveyFormService,
 		private _surveyPerformanceService: SurveyPerformanceService,
-		private _studentService: StudentService,
-		private _recordsService: RecordsService,
 	) {}
 
 	SEMESTERS = SEMESTERS
@@ -104,6 +106,8 @@ export class SurveyAnswerComponent implements OnInit {
 		}
 
 		this.currentForm = this.forms[formIndex + 1]
+
+		this._scrollService.scrollToTop()
 	}
 
 	setScore(question: SurveyQuestion, index: number) {
