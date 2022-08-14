@@ -50,7 +50,7 @@ export class SurveyAnswerComponent implements OnInit {
 		'Somewhat like me',
 		'Not much like me',
 		'Not like me at all',
-	]
+	].reverse()
 
 	form: FormGroup = this._formBuilder.group({
 		year_level: ['2nd', [Validators.required]],

@@ -1,0 +1,8 @@
+<view-recommendation
+	stopPropagation
+	(click)="_viewRecommendationModalOpened$.next(false)"
+	*ngIf="_viewRecommendationModalOpened$ | async"
+	@fadeOut
+	style="z-index: 999; background: rgba(0, 0, 50, 0.5)"
+	class="fixed flex w-screen h-screen"
+></view-recommendation>

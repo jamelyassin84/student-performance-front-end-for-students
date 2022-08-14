@@ -1,3 +1,4 @@
+import { StopPropagation } from './../../@global_packages/directives/stop.propagation.directive'
 import { HttpClientModule } from '@angular/common/http'
 import { FuseAlertModule } from './../../@fuse/components/alert/alert.module'
 import { FuseCardModule } from './../../@fuse/components/card/card.module'
@@ -21,8 +22,18 @@ import { AnimateJsDirective } from '@global_packages/directives/animate.js.direc
 import { HasScorePipe } from 'app/app-core/pipes/has-score.pipe'
 import { HasRatedDirective } from 'app/app-core/directives/has-rated.directive'
 import { MatRadioModule } from '@angular/material/radio'
+import { ModalComponent } from 'app/modules/admin/modal/modal.component'
+import { ViewRecommendationComponent } from 'app/modules/admin/modal/view-recommendation/view-recommendation.component'
+import { ModalHeaderComponent } from 'app/components/modal-header/modal-header.component'
+import { GetPercentagePipe } from 'app/app-core/pipes/to_percentage.pipe'
 
-const components = [PageHeaderComponent, AvatarPlaceholderComponent]
+const components = [
+	ModalComponent,
+	PageHeaderComponent,
+	ModalHeaderComponent,
+	AvatarPlaceholderComponent,
+	ViewRecommendationComponent,
+]
 
 const modules = [
 	CommonModule,
@@ -43,9 +54,15 @@ const modules = [
 	MatRadioModule,
 ]
 
-const pipes = [HasDataPipe, EmptyPipe, InitialsPipe, HasScorePipe]
+const pipes = [
+	HasDataPipe,
+	EmptyPipe,
+	InitialsPipe,
+	HasScorePipe,
+	GetPercentagePipe,
+]
 
-const directives = [AnimateJsDirective, HasRatedDirective]
+const directives = [AnimateJsDirective, HasRatedDirective, StopPropagation]
 
 @NgModule({
 	declarations: [...components, ...pipes, ...directives],

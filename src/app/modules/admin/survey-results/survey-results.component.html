@@ -8,9 +8,17 @@
 
 	<ul class="grid px-10 md:grid-cols-2 gap-x-10">
 		<li class="p-5 border-b" *ngFor="let performance of performances">
-			<div>
-				Semester:
-				<span class="ml-1 font-bold">{{ performance.semester }}</span>
+			<div class="flex items-center">
+				<div>
+					Semester:
+					<span class="ml-1 font-bold">{{ performance.semester }}</span>
+				</div>
+
+				<div class="ml-auto">
+					<button (click)="viewRecommendation(performance)" mat-flat-button>
+						View Recommendations
+					</button>
+				</div>
 			</div>
 
 			<div>

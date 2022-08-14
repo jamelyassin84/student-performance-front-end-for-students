@@ -71,7 +71,7 @@
 			</div>
 
 			<div class="w-full" *ngIf="currentForm && !showSubmitSurvey">
-				<div class="flex flex-wrap">
+				<div class="flex flex-wrap pr-20">
 					<div
 						[ngClass]="{
 							'opacity-20 pointer-events-none': currentForm.id !== form.id
@@ -83,7 +83,7 @@
 							{{ form.name }}
 						</div>
 
-						<div class="text-xl text-gray-500 mb-2">
+						<div class="text-xs text-gray-500 mb-2">
 							{{ form.description }}
 						</div>
 					</div>
@@ -104,20 +104,16 @@
 								let questionIndex = index
 							"
 						>
-							<div class="items-center -ml-5 mb-4">
+							<div class="items-center -ml-5 font-bold text-lg">
 								{{ questionIndex + 1 }}) {{ question.title }}
 							</div>
 
-							<div class="text-lg flex items-center font-bold -ml-5">
-								<mat-icon
-									class="mr-2 text-sky-400 icon-size-7"
-									svgIcon="info"
-								></mat-icon>
+							<div class="flex items-center -ml-5 text-gray-500">
 								{{ question.question }}
 							</div>
 
 							<mat-radio-group
-								class="grid grid-cols-5 mt-10"
+								class="grid grid-cols-5 mt-5"
 								aria-label="Select an option"
 							>
 								<mat-radio-button
