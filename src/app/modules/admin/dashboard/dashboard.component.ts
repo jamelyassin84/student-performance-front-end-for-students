@@ -179,7 +179,8 @@ export class DashboardComponent implements OnInit {
 									(latestRecord) =>
 										latestRecord.semester === semester &&
 										latestRecord.year_level === year_level,
-								).length,
+								).length /
+								4,
 						)
 					})
 

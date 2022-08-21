@@ -10,15 +10,15 @@
 		(onClose)="opened$.next(false)"
 	></modal-header>
 
-	<div class="w-full bg-white p-10 overflow-y-auto" style="height: 80vh">
+	<div class="w-full p-10 overflow-y-auto bg-white" style="height: 80vh">
 		<div *ngFor="let form of recommendations | keyvalue; let i = index">
 			<div *ngIf="i === 0">
 				<div class="text-4xl font-bold">
 					Predicted GPA:
 					{{
-						form.value.mine.performance.performance
+						(form.value.mine.performance.performance
 							| get_percentage: form.value.top.gpa.gpa
-							| number: '1.2-2'
+							| number: '1.2-2') > 100
 					}}
 				</div>
 				<div class="text-gray-500">
@@ -29,13 +29,13 @@
 		</div>
 
 		<div class="mt-4" *ngFor="let form of recommendations | keyvalue">
-			<div class="text-2xl font-bold mb-4">{{ form.key }}</div>
+			<div class="mb-4 text-2xl font-bold">{{ form.key }}</div>
 
 			<div
-				class="py-3 px-3 border border-t border-t-gray-100"
+				class="px-3 py-3 border border-t border-t-gray-100"
 				*ngFor="let question of form.value.mine.questions; let index = index"
 			>
-				<div class="items-center font-medium text-lg">
+				<div class="items-center text-lg font-medium">
 					{{ index + 1 }}) {{ question.title }}
 				</div>
 

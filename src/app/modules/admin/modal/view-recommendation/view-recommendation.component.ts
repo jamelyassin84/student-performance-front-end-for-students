@@ -8,6 +8,7 @@ import { dbwAnimations } from '@global_packages/animations/animation.api'
 import { StudentService } from 'app/app-core/services/student.service'
 import { combineLatest, take } from 'rxjs'
 import { ViewRecommendationModal } from './view-recommendation.service'
+import regression from 'regression'
 
 @Component({
 	selector: 'view-recommendation',
@@ -31,7 +32,29 @@ export class ViewRecommendationComponent implements OnInit {
 
 	recommendations: any
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		const result = regression.linear([
+			[90, 95],
+			[50, 97],
+			[60, 92],
+			[90, 91],
+		])
+
+		const gradient = result.equation[0]
+		const yIntercept = result.equation[1]
+
+		const predictions = result.predict(90)
+
+		let total = 0
+
+		for (let value of predictions) {
+			total += value
+		}
+
+		const averagePrediction = total / predictions.length
+
+		console.log(averagePrediction)
+	}
 
 	ngAfterViewInit(): void {
 		combineLatest([
