@@ -152,9 +152,9 @@ export class DashboardComponent implements OnInit {
 			this._recordsService
 				.findOne(student.id)
 				.subscribe((records: Record[]) => {
-					let semester = records[1].semester
+					let semester = records[0].semester
 
-					let year_level = records[1].year_level
+					let year_level = records[0].year_level
 
 					let labels = []
 
@@ -180,7 +180,7 @@ export class DashboardComponent implements OnInit {
 										latestRecord.semester === semester &&
 										latestRecord.year_level === year_level,
 								).length /
-								4,
+								1,
 						)
 					})
 
