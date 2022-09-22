@@ -17,6 +17,8 @@ import { ModalHeaderComponent } from './components/modal-header/modal-header.com
 const routerConfig: ExtraOptions = {
 	preloadingStrategy: PreloadAllModules,
 	scrollPositionRestoration: 'enabled',
+    useHash:true
+	
 }
 
 @NgModule({
