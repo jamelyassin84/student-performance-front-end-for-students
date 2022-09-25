@@ -32,15 +32,16 @@
 			></apx-chart>
 		</div>
 
-		<!-- <div class="flex flex-col w-full p-10 mt-10 bg-white drop-shadow-md">
+		<div class="flex flex-col w-full p-10 mt-10 bg-white drop-shadow-md">
 			<div class="mb-2 text-xl font-bold">Survey Distribution</div>
 
 			<apx-chart
+				*ngIf="pie"
 				[series]="pie.series"
 				[chart]="pie.chart"
 				[labels]="pie.labels"
-				[responsive]="pie.responsive"`
+				[responsive]="pie.responsive"
 			></apx-chart>
-		</div> -->
+		</div>
 	</div>
 </div>

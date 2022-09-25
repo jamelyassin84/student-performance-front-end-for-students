@@ -7,6 +7,8 @@ import { toImplicitRating, toNotNan } from '@global_packages/helpers/helpers'
 import { dbwAnimations } from '@global_packages/animations/animation.api'
 import { RecordsService } from 'app/app-core/store/records/records.service'
 import { Record } from 'app/app-core/store/records/records.model'
+import { PIE_CHART_CONFIG } from 'app/app-core/configs/pie-chart.config'
+import { LINE_CHART_CONFIG } from 'app/app-core/configs/line-chart.config'
 
 @Component({
 	selector: 'app-dashboard',
@@ -29,114 +31,9 @@ export class DashboardComponent implements OnInit {
 
 	data: any
 
-	chart = {
-		chart: {
-			fontFamily: 'inherit',
-			foreColor: 'inherit',
-			height: '100%',
-			type: 'line',
-			toolbar: {
-				show: false,
-			},
-			zoom: {
-				enabled: false,
-			},
-		},
-		colors: ['#FACB1F', '#94A3B8'],
-		dataLabels: {
-			enabled: true,
-			enabledOnSeries: [0],
-			background: {
-				borderWidth: 0,
-			},
-		},
-		grid: {
-			borderColor: 'var(--fuse-border)',
-		},
-		labels: ['1st Yr-2nd Sem', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-		legend: {
-			show: false,
-		},
-		plotOptions: {
-			bar: {
-				columnWidth: '50%',
-			},
-		},
-		series: [
-			{
-				name: '1',
-				data: [
-					{ x: '2nd Yr - 1st Sem', y: [0] },
-					{ x: '2nd Yr - 2nd Sem', y: [0] },
-					{ x: '3rd Yr - 1st Sem', y: [0] },
-					{ x: '3rd Yr - 2nd Sem', y: [0] },
-					{ x: '4th Yr - 1st Sem', y: [0] },
-					{ x: '4th Yr - 2nd Sem', y: [0] },
-				],
-			},
-		],
-		states: {
-			hover: {
-				filter: {
-					type: 'darken',
-					value: 0.75,
-				},
-			},
-		},
-		stroke: {
-			width: [3, 0],
-		},
-		tooltip: {
-			followCursor: true,
-			theme: 'dark',
-		},
-		xaxis: {
-			axisBorder: {
-				show: false,
-			},
-			axisTicks: {
-				color: 'var(--fuse-border)',
-			},
-			labels: {
-				style: {
-					colors: 'var(--fuse-text-secondary)',
-				},
-			},
-			tooltip: {
-				enabled: false,
-			},
-		},
-		yaxis: {
-			labels: {
-				offsetX: -16,
-				style: {
-					colors: 'var(--fuse-text-secondary)',
-				},
-			},
-		},
-	}
+	chart = { ...LINE_CHART_CONFIG }
 
-	pie = {
-		series: [],
-		chart: {
-			width: 580,
-			type: 'pie',
-		},
-		labels: [],
-		responsive: [
-			{
-				breakpoint: 480,
-				options: {
-					chart: {
-						width: 200,
-					},
-					legend: {
-						position: 'bottom',
-					},
-				},
-			},
-		],
-	}
+	pie = { ...PIE_CHART_CONFIG }
 
 	SPLIT_VALUE = ' - '
 
@@ -162,6 +59,7 @@ export class DashboardComponent implements OnInit {
 
 					records.forEach((record) => {
 						let total = 0
+
 						if (
 							record.semester === semester &&
 							record.year_level === year_level
@@ -186,7 +84,9 @@ export class DashboardComponent implements OnInit {
 
 					this.pie.labels = [...new Set(labels)]
 
-					this.pie.series = [...new Set(series)]
+					this.pie.series = [...new Set(series)].filter(
+						(value, index) => index <= 3,
+					)
 				})
 		})
 	}
@@ -196,6 +96,7 @@ export class DashboardComponent implements OnInit {
 			this._surveyPerformanceService
 				.query(`?student_id=${student.id}`)
 				.subscribe((performances: StudentPerformance[]) => {
+					console.log(performances)
 					let total = 0
 
 					performances.forEach((performance) => {
