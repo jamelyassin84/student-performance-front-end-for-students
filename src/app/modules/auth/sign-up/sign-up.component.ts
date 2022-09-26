@@ -69,8 +69,9 @@ export class AuthSignUpComponent implements OnInit {
 			degree: ['', Validators.required],
 			course: ['', Validators.required],
 			major: [''],
-			address: ['', Validators.required],
 			agreements: ['', Validators.requiredTrue],
+			password: ['', Validators.required],
+			confirm_password: ['', Validators.required],
 		})
 	}
 

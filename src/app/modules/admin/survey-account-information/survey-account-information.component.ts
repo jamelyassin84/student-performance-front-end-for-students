@@ -37,7 +37,6 @@ export class SurveyAccountInformationComponent implements OnInit {
 		degree: ['', Validators.required],
 		course: ['', Validators.required],
 		major: [''],
-		address: ['', Validators.required],
 	})
 
 	DEPARTMENTS = DEPARTMENTS1

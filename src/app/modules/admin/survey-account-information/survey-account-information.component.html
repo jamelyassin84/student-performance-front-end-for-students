@@ -6,7 +6,7 @@
 		icon="account_circle"
 	></page-header>
 
-	<div class="grid grid-cols-5 items-center gap-10 p-10">
+	<div class="grid items-center grid-cols-5 gap-10 p-10">
 		<mat-form-field class="w-full">
 			<mat-label>Full name</mat-label>
 
@@ -120,21 +120,13 @@
 			</mat-select>
 		</mat-form-field>
 
-		<mat-form-field class="w-full">
-			<mat-label>Address</mat-label>
-
-			<input formControlName="address" matInput />
-
-			<mat-error> Address is required </mat-error>
-		</mat-form-field>
-
 		<div>
 			<button
 				[ngClass]="{
 					'bg-blue-800': form.valid && !form.disabled,
-					'bg-gray-500': form.disabled || !form.valid
+					'bg-gray-500 pointer-events-none': form.disabled || !form.valid
 				}"
-				class="fuse-mat-button-large w-full mt-3 flex text-white py-3 font-bold hover:bg-blue-900 items-center justify-center"
+				class="flex items-center justify-center w-full py-3 mt-3 font-bold text-white fuse-mat-button-large hover:bg-blue-900"
 				[disabled]="form.disabled || !form.valid"
 				(click)="update()"
 			>
