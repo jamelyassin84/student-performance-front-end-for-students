@@ -8,8 +8,8 @@ import {
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core'
 import {
 	AbstractControl,
-	FormBuilder,
-	FormGroup,
+	UntypedFormBuilder,
+	UntypedFormGroup,
 	NgForm,
 	Validators,
 } from '@angular/forms'
@@ -32,7 +32,7 @@ export class AuthSignUpComponent implements OnInit {
 		type: 'success',
 		message: '',
 	}
-	signUpForm: FormGroup
+	signUpForm: UntypedFormGroup
 	showAlert: boolean = false
 
 	DEPARTMENTS = DEPARTMENTS1
@@ -44,7 +44,7 @@ export class AuthSignUpComponent implements OnInit {
 	MAJORS: string[] = []
 
 	constructor(
-		private _formBuilder: FormBuilder,
+		private _formBuilder: UntypedFormBuilder,
 		private _router: Router,
 		private _loginAPI: LoginAPI,
 		private _registerAPI: RegisterAPI,

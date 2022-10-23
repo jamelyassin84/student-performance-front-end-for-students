@@ -12,7 +12,12 @@ import { mockApiServices } from 'app/mock-api'
 import { LayoutModule } from 'app/layout/layout.module'
 import { AppComponent } from 'app/app.component'
 import { appRoutes } from 'app/app.routing'
-import { ModalHeaderComponent } from './components/modal-header/modal-header.component'
+import { ModalHeaderComponent } from './components/modal-header/modal-header.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { EffectsModule } from '@ngrx/effects'
 
 const routerConfig: ExtraOptions = {
 	preloadingStrategy: PreloadAllModules,
@@ -41,6 +46,14 @@ const routerConfig: ExtraOptions = {
 
 		// 3rd party modules that require global configuration via forRoot
 		MarkdownModule.forRoot({}),
+
+		StoreModule.forRoot({}, {}),
+
+		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+
+		StoreRouterConnectingModule.forRoot(),
+
+		EffectsModule.forRoot([]),
 	],
 	bootstrap: [AppComponent],
 })

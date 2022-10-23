@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import {
 	Course,
 	COURSES,
@@ -17,7 +17,7 @@ import { StudentService } from 'app/app-core/services/student.service'
 })
 export class SurveyAccountInformationComponent implements OnInit {
 	constructor(
-		private _formBuilder: FormBuilder,
+		private _formBuilder: UntypedFormBuilder,
 		private _studentService: StudentService,
 		private _cdr: ChangeDetectorRef,
 	) {}
@@ -26,7 +26,7 @@ export class SurveyAccountInformationComponent implements OnInit {
 
 	user$ = this._studentService.user$
 
-	form: FormGroup = this._formBuilder.group({
+	form: UntypedFormGroup = this._formBuilder.group({
 		id: [''],
 		name: ['', Validators.required],
 		email: ['', [Validators.required, Validators.email]],

@@ -1,5 +1,5 @@
 import { GuidanceRequestService } from './../../../app-core/store/guidance-request/guidance-request.service'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { dbwAnimations } from '@global_packages/animations/animation.api'
 import {
@@ -26,7 +26,7 @@ import { ScrollService } from '@global_packages/services/scroll.service'
 })
 export class SurveyAnswerComponent implements OnInit {
 	constructor(
-		private _formBuilder: FormBuilder,
+		private _formBuilder: UntypedFormBuilder,
 		private _scrollService: ScrollService,
 		private _recordsService: RecordsService,
 		private _studentService: StudentService,
@@ -52,7 +52,7 @@ export class SurveyAnswerComponent implements OnInit {
 		'Not like me at all',
 	].reverse()
 
-	form: FormGroup = this._formBuilder.group({
+	form: UntypedFormGroup = this._formBuilder.group({
 		year_level: ['2nd', [Validators.required]],
 		semester: ['1st', [Validators.required]],
 		performance: [0, [Validators.required]],
