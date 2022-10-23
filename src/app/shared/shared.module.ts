@@ -26,6 +26,9 @@ import { ModalComponent } from 'app/modules/admin/modal/modal.component'
 import { ViewRecommendationComponent } from 'app/modules/admin/modal/view-recommendation/view-recommendation.component'
 import { ModalHeaderComponent } from 'app/components/modal-header/modal-header.component'
 import { GetPercentagePipe } from 'app/app-core/pipes/to_percentage.pipe'
+import { ToImplicitRatingPipe } from 'app/app-core/pipes/to-implicit-rating.pipe'
+import { appStateModules } from './app.state'
+import { appEffects } from './app.effects'
 
 const components = [
 	ModalComponent,
@@ -60,13 +63,14 @@ const pipes = [
 	InitialsPipe,
 	HasScorePipe,
 	GetPercentagePipe,
+	ToImplicitRatingPipe,
 ]
 
 const directives = [AnimateJsDirective, HasRatedDirective, StopPropagation]
 
 @NgModule({
 	declarations: [...components, ...pipes, ...directives],
-	imports: [...modules],
+	imports: [...modules, ...appStateModules, ...appEffects],
 	exports: [...modules, ...components, ...pipes, ...directives],
 })
 export class SharedModule {}

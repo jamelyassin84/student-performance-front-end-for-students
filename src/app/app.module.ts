@@ -12,18 +12,18 @@ import { mockApiServices } from 'app/mock-api'
 import { LayoutModule } from 'app/layout/layout.module'
 import { AppComponent } from 'app/app.component'
 import { appRoutes } from 'app/app.routing'
-import { ModalHeaderComponent } from './components/modal-header/modal-header.component';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { ModalHeaderComponent } from './components/modal-header/modal-header.component'
+import { StoreModule } from '@ngrx/store'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+import { environment } from '../environments/environment'
+import { StoreRouterConnectingModule } from '@ngrx/router-store'
 import { EffectsModule } from '@ngrx/effects'
+import { SharedModule } from './shared/shared.module'
 
 const routerConfig: ExtraOptions = {
 	preloadingStrategy: PreloadAllModules,
 	scrollPositionRestoration: 'enabled',
-    useHash:true
-	
+	useHash: true,
 }
 
 @NgModule({
@@ -38,6 +38,8 @@ const routerConfig: ExtraOptions = {
 		FuseConfigModule.forRoot(appConfig),
 		FuseMockApiModule.forRoot(mockApiServices),
 
+		SharedModule,
+
 		// Core module of your application
 		CoreModule,
 
@@ -49,7 +51,10 @@ const routerConfig: ExtraOptions = {
 
 		StoreModule.forRoot({}, {}),
 
-		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25,
+			logOnly: environment.production,
+		}),
 
 		StoreRouterConnectingModule.forRoot(),
 

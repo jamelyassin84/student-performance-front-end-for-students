@@ -7,15 +7,15 @@ import { StoreAction } from 'app/app-core/store/core/action.enum'
 export const adapter: EntityAdapter<ImplicitRating> =
 	createEntityAdapter<ImplicitRating>()
 
-export interface State extends EntityState<ImplicitRating> {
-	loading: LoadingState
-	error: any
-}
-
 export const initialState: State = adapter.getInitialState({
 	loading: LoadingState.IDLE,
 	error: null,
 })
+
+export interface State extends EntityState<ImplicitRating> {
+	loading: LoadingState
+	error: any
+}
 
 export const implicitRatingReducer = createReducer(
 	initialState,

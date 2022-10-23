@@ -6,6 +6,9 @@ import { take } from 'rxjs'
 import { toImplicitRating } from '@global_packages/helpers/helpers'
 import { GuidanceRequestService } from 'app/app-core/store/guidance-request/guidance-request.service'
 import { ViewRecommendationModal } from '../modal/view-recommendation/view-recommendation.service'
+import { AppState } from 'app/app-core/store/core/app.state'
+import { Store } from '@ngrx/store'
+import { StoreAction } from 'app/app-core/store/core/action.enum'
 
 @Component({
 	selector: 'app-survey-results',
@@ -14,6 +17,7 @@ import { ViewRecommendationModal } from '../modal/view-recommendation/view-recom
 })
 export class SurveyResultsComponent implements OnInit {
 	constructor(
+		private _store: Store<AppState>,
 		private _studentService: StudentService,
 		private _guidanceRequestService: GuidanceRequestService,
 		private _viewRecommendationModal: ViewRecommendationModal,
@@ -23,6 +27,8 @@ export class SurveyResultsComponent implements OnInit {
 	performances: StudentPerformance[] = []
 
 	ngOnInit(): void {
+		this._store.dispatch(StoreAction.IMPLICIT_RATING.LOAD())
+
 		this.getPerformances()
 	}
 
