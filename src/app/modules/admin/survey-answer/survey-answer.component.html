@@ -8,13 +8,13 @@
 
 	<div class="flex items-center justify-center w-full bg-gray-50">
 		<div
-			class="flex flex-col items-center justify-center w-full max-w-screen-md bg-white border border-gray-50 px-10"
+			class="flex flex-col items-center justify-center w-full max-w-screen-md px-10 bg-white border border-gray-50"
 		>
 			<div
 				@slideInBottom
 				*ngIf="showSubmitSurvey"
 				[formGroup]="form"
-				class="grid grid-cols-2 items-center gap-10 py-10 w-full"
+				class="grid items-center w-full grid-cols-2 gap-10 py-10"
 			>
 				<mat-form-field class="w-full">
 					<mat-label>Year Level</mat-label>
@@ -42,7 +42,7 @@
 			</div>
 
 			<div
-				class="bg-sky-50 text-sky-500 rounded-md border border-sky-400 my-10 p-5 w-full"
+				class="w-full p-5 my-10 border rounded-md bg-sky-50 text-sky-500 border-sky-400"
 			>
 				I am aware that this survey is duty bound and obligated under the RA No.
 				10173 or Data Privacy Act of 2012 to protect all my personal, private
@@ -55,7 +55,7 @@
 							'bg-blue-800': form.valid && !form.disabled,
 							'bg-gray-500': form.disabled || !form.valid
 						}"
-						class="fuse-mat-button-large w-full mt-3 flex text-white py-3 font-bold hover:bg-blue-900 items-center justify-center"
+						class="flex items-center justify-center w-full py-3 mt-3 font-bold text-white fuse-mat-button-large hover:bg-blue-900"
 						[disabled]="form.disabled || !form.valid"
 						(click)="save()"
 					>
@@ -79,11 +79,11 @@
 						*ngFor="let form of forms; trackBy: identity; let formIndex = index"
 						class="flex-1"
 					>
-						<div class="text-4xl font-extrabold">
+						<div class="text-lg font-extrabold">
 							{{ form.name }}
 						</div>
 
-						<div class="text-xs text-gray-500 mb-2">
+						<div class="mb-2 text-xs text-gray-500">
 							{{ form.description }}
 						</div>
 					</div>
@@ -97,14 +97,14 @@
 				>
 					<div [@listAnimation]="form.questions.length" class="w-full">
 						<div
-							class="bg-white rounded-md p-5 py-10 pt-5 flex flex-col animate__faster border-t border-t-gray-200"
+							class="flex flex-col p-5 py-10 pt-5 bg-white border-t rounded-md animate__faster border-t-gray-200"
 							*ngFor="
 								let question of form.questions;
 								trackBy: identity;
 								let questionIndex = index
 							"
 						>
-							<div class="items-center -ml-5 font-bold text-lg">
+							<div class="items-center -ml-5 text-lg font-bold">
 								{{ questionIndex + 1 }}) {{ question.title }}
 							</div>
 
@@ -139,7 +139,7 @@
 								'bg-sky-500 text-xl hover:bg-sky-600': hasFormAnswered(form)
 							}"
 							(click)="onNext(formIndex, form)"
-							class="py-3 w-full rounded-lg text-white"
+							class="w-full py-3 text-white rounded-lg"
 						>
 							{{ forms.length - 1 === formIndex ? 'Done' : 'Next' }}
 						</button>
