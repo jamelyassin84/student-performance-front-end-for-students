@@ -1,17 +1,17 @@
 <div
-	class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0"
+	class="flex flex-col items-center flex-auto min-w-0 sm:flex-row md:items-start sm:justify-center md:justify-start"
 >
 	<div
-		class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card"
+		class="w-full px-4 py-8 md:flex md:items-center md:justify-end sm:w-auto md:h-full md:w-1/2 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card"
 	>
-		<div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
+		<div class="w-full mx-auto max-w-80 sm:w-80 sm:mx-0">
 			<!-- Logo -->
 			<div class="w-12">
 				<img src="/assets/app/cpu-logo.png" />
 			</div>
 
 			<!-- Title -->
-			<div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">
+			<div class="mt-8 text-4xl font-extrabold leading-tight tracking-tight">
 				Sign in
 			</div>
 			<div class="flex items-baseline mt-0.5 font-medium">
@@ -50,7 +50,7 @@
 				</mat-form-field>
 
 				<mat-form-field class="w-full">
-					<mat-label>ID Number</mat-label>
+					<mat-label>Password</mat-label>
 					<input
 						id="id_number"
 						matInput
@@ -62,7 +62,7 @@
 				</mat-form-field>
 
 				<button
-					class="fuse-mat-button-large w-full mt-3 bg-amber-500 flex text-white py-3 font-bold hover:bg-amber-600/80 items-center justify-center"
+					class="flex items-center justify-center w-full py-3 mt-3 font-bold text-white fuse-mat-button-large bg-amber-500 hover:bg-amber-600/80"
 					[disabled]="signInForm.disabled"
 					(click)="signIn()"
 				>
@@ -81,7 +81,7 @@
 					<div class="flex-auto mt-px border-t"></div>
 				</div>
 
-				<div class="mx-2 text-secondary text-center mt-10">
+				<div class="mx-2 mt-10 text-center text-secondary">
 					Contact us at: 0932432434
 				</div>
 			</form>
@@ -89,7 +89,7 @@
 	</div>
 	<div
 		style="background: #200c5f"
-		class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden"
+		class="relative items-center justify-center flex-auto hidden w-1/2 h-full p-16 overflow-hidden md:flex lg:px-28"
 	>
 		<!-- Background - @formatter:off -->
 		<!-- Rings -->
@@ -139,12 +139,12 @@
 		</svg>
 		<!-- @formatter:on -->
 		<!-- Content -->
-		<div class="z-10 relative w-full max-w-2xl">
-			<div class="text-7xl font-bold leading-none text-gray-100">
+		<div class="relative z-10 w-full max-w-2xl">
+			<div class="font-bold leading-none text-gray-100 text-7xl">
 				<div>Welcome to</div>
 				<div>Student Performance Monitor</div>
 			</div>
-			<div class="mt-6 text-lg tracking-tight leading-6 text-gray-400">
+			<div class="mt-6 text-lg leading-6 tracking-tight text-gray-400">
 				Monitor and track your performance until you graduate. Find out what
 				psychometric behaviors you should abide to based on top performing
 				students.
@@ -152,19 +152,19 @@
 			<div class="flex items-center mt-8">
 				<div class="flex flex-0 items-center -space-x-1.5">
 					<img
-						class="flex-0 w-10 h-10 rounded-full ring-2 ring-offset-1 ring-white ring-offset-white object-cover"
+						class="object-cover w-10 h-10 rounded-full flex-0 ring-2 ring-offset-1 ring-white ring-offset-white"
 						src="assets/images/avatars/female-18.jpg"
 					/>
 					<img
-						class="flex-0 w-10 h-10 rounded-full ring-2 ring-offset-1 ring-white ring-offset-white object-cover"
+						class="object-cover w-10 h-10 rounded-full flex-0 ring-2 ring-offset-1 ring-white ring-offset-white"
 						src="assets/images/avatars/female-03.jpg"
 					/>
 					<img
-						class="flex-0 w-10 h-10 rounded-full ring-2 ring-offset-1 ring-white ring-offset-white object-cover"
+						class="object-cover w-10 h-10 rounded-full flex-0 ring-2 ring-offset-1 ring-white ring-offset-white"
 						src="assets/images/avatars/male-05.jpg"
 					/>
 					<img
-						class="flex-0 w-10 h-10 rounded-full ring-2 ring-offset-1 ring-white ring-offset-white object-cover"
+						class="object-cover w-10 h-10 rounded-full flex-0 ring-2 ring-offset-1 ring-white ring-offset-white"
 						src="assets/images/avatars/male-15.jpg"
 					/>
 				</div>

@@ -1,6 +1,11 @@
 import { StudentService } from './../../../app-core/services/student.service'
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core'
-import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms'
+import {
+	UntypedFormBuilder,
+	UntypedFormGroup,
+	NgForm,
+	Validators,
+} from '@angular/forms'
 import { Router } from '@angular/router'
 import { fuseAnimations } from '@fuse/animations'
 import { FuseAlertType } from '@fuse/components/alert'
