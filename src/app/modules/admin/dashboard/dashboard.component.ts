@@ -60,33 +60,35 @@ export class DashboardComponent implements OnInit {
 					records.forEach((record) => {
 						let total = 0
 
+						const latestRecord = records.filter(
+							(latestRecord) =>
+								latestRecord.semester === semester &&
+								latestRecord.year_level === year_level,
+						).length
+
 						if (
 							record.semester === semester &&
 							record.year_level === year_level
 						) {
+							total += record.score
 							if (!labels.includes(record.survey_form.name)) {
 								labels.push(`${record.survey_form.name}`)
+								series.push(total / latestRecord)
 							}
 
-							total += record.score
-						}
+							const index = labels.findIndex(
+								(label) => label === record.survey_form.name,
+							)
 
-						series.push(
-							total /
-								records.filter(
-									(latestRecord) =>
-										latestRecord.semester === semester &&
-										latestRecord.year_level === year_level,
-								).length /
-								1,
-						)
+							if (index <= 0) {
+								series[index] = series[index] + total / latestRecord
+							}
+						}
 					})
 
-					this.pie.labels = [...new Set(labels)]
+					this.pie.labels = [...labels]
 
-					this.pie.series = [...new Set(series)].filter(
-						(value, index) => index <= 3,
-					)
+					this.pie.series = [...series].filter((value, index) => index <= 3)
 				})
 		})
 	}
