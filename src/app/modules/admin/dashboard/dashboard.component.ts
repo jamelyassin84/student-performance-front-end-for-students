@@ -71,13 +71,13 @@ export class DashboardComponent implements OnInit {
 							record.year_level === year_level
 						) {
 							total += record.score
-							if (!labels.includes(record.survey_form.name)) {
-								labels.push(`${record.survey_form.name}`)
+							if (!labels.includes(record.survey_form.description)) {
+								labels.push(`${record.survey_form.description}`)
 								series.push(total / latestRecord)
 							}
 
 							const index = labels.findIndex(
-								(label) => label === record.survey_form.name,
+								(label) => label === record.survey_form.description,
 							)
 
 							if (index <= 0) {
