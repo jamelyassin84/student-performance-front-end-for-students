@@ -73,14 +73,16 @@ export class DashboardComponent implements OnInit {
 							total += record.score
 							if (!labels.includes(record.survey_form.description)) {
 								labels.push(`${record.survey_form.description}`)
+
 								series.push(total / latestRecord)
+								return
 							}
 
 							const index = labels.findIndex(
 								(label) => label === record.survey_form.description,
 							)
 
-							if (index <= 0) {
+							if (index >= 0) {
 								series[index] = series[index] + total / latestRecord
 							}
 						}
