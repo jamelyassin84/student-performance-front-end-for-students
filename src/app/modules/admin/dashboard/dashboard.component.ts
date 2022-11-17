@@ -75,6 +75,7 @@ export class DashboardComponent implements OnInit {
 								labels.push(`${record.survey_form.description}`)
 
 								series.push(total / latestRecord)
+
 								return
 							}
 

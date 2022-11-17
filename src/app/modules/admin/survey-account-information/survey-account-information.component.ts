@@ -1,4 +1,8 @@
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
+import {
+	UntypedFormBuilder,
+	UntypedFormGroup,
+	Validators,
+} from '@angular/forms'
 import {
 	Course,
 	COURSES,
@@ -37,6 +41,7 @@ export class SurveyAccountInformationComponent implements OnInit {
 		degree: ['', Validators.required],
 		course: ['', Validators.required],
 		major: [''],
+		address: [''],
 	})
 
 	DEPARTMENTS = DEPARTMENTS1

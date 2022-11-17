@@ -71,7 +71,7 @@
 			</div>
 
 			<div class="w-full" *ngIf="currentForm && !showSubmitSurvey">
-				<div class="flex flex-wrap pr-20">
+				<div class="flex flex-wrap w-full pr-20">
 					<div
 						[ngClass]="{
 							'opacity-20 pointer-events-none': currentForm.id !== form.id
@@ -83,7 +83,7 @@
 							{{ form.name }}
 						</div>
 
-						<div class="mb-2 text-xs text-gray-500">
+						<div class="mb-2 text-lg text-gray-500">
 							{{ form.description }}
 						</div>
 					</div>
