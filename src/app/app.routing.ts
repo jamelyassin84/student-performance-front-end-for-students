@@ -61,6 +61,21 @@ export const appRoutes: Route[] = [
 						(m) => m.AuthSignUpModule,
 					),
 			},
+			{
+				path: 'privacy-policy',
+				loadChildren: () =>
+					import('app/modules/admin/privacy-policy/privacy-policy.module').then(
+						(module) => module.PrivacyPolicyModule,
+					),
+			},
+
+			{
+				path: 'terms-and-conditions',
+				loadChildren: () =>
+					import(
+						'app/modules/admin/terms-and-conditions/terms-and-conditions.module'
+					).then((module) => module.TermsAndConditionsModule),
+			},
 		],
 	},
 

@@ -45,7 +45,7 @@
 						signUpForm.get('email').touched &&
 						(signUpForm.get('email').hasError('email') ||
 							signUpForm.get('email').hasError('required') ||
-							validateCPUEmail(signUpForm.get('email')?.value))
+							!isValidEmail(signUpForm.get('email')?.value))
 					"
 				>
 					Please enter a valid CPU email address
@@ -186,11 +186,15 @@
 				<div class="inline-flex items-end w-full mt-1.5">
 					<mat-checkbox [color]="'primary'" [formControlName]="'agreements'">
 						<span>I agree to the</span>
-						<a class="ml-1 text-blue-800 hover:underline" [routerLink]="['./']"
-							>Terms of Service
+						<a
+							class="ml-1 text-blue-800 hover:underline"
+							[routerLink]="['/terms-and-conditions']"
+							>Terms & Conditions
 						</a>
 						<span>and</span>
-						<a class="ml-1 text-blue-800 hover:underline" [routerLink]="['./']"
+						<a
+							class="ml-1 text-blue-800 hover:underline"
+							[routerLink]="['/privacy-policy']"
 							>Privacy Policy
 						</a>
 					</mat-checkbox>

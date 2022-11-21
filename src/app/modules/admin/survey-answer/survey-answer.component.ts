@@ -1,5 +1,9 @@
 import { GuidanceRequestService } from './../../../app-core/store/guidance-request/guidance-request.service'
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms'
+import {
+	UntypedFormBuilder,
+	UntypedFormGroup,
+	Validators,
+} from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { dbwAnimations } from '@global_packages/animations/animation.api'
 import {
@@ -17,6 +21,7 @@ import { combineLatest, take } from 'rxjs'
 import { Record } from 'app/app-core/store/records/records.model'
 import { RecordsService } from 'app/app-core/store/records/records.service'
 import { ScrollService } from '@global_packages/services/scroll.service'
+import { Router } from '@angular/router'
 
 @Component({
 	selector: 'app-survey-answer',
@@ -26,6 +31,7 @@ import { ScrollService } from '@global_packages/services/scroll.service'
 })
 export class SurveyAnswerComponent implements OnInit {
 	constructor(
+		private _router: Router,
 		private _formBuilder: UntypedFormBuilder,
 		private _scrollService: ScrollService,
 		private _recordsService: RecordsService,
@@ -192,7 +198,9 @@ export class SurveyAnswerComponent implements OnInit {
 							`Survey Submitted. Keep track of your scores in survey results.`,
 						)
 
-						location.reload()
+						this._router
+							.navigate(['/survey-results'])
+							.then(() => location.reload())
 					}
 				})
 		})

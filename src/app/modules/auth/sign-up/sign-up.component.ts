@@ -75,10 +75,8 @@ export class AuthSignUpComponent implements OnInit {
 		})
 	}
 
-	validateCPUEmail(value: string) {
-		console.log(value.toLocaleLowerCase().includes('cpu.edu.ph') ? false : true)
-
-		return value.toLocaleLowerCase().includes('cpu.edu.ph') ? false : true
+	isValidEmail(email: string) {
+		return email.toLocaleLowerCase().includes('cpu.edu.ph') ? true : false
 	}
 
 	onDepartmentChange(data: string) {
@@ -112,6 +110,11 @@ export class AuthSignUpComponent implements OnInit {
 	identity = (item: any) => item
 
 	signUp(): void {
+		if (!this.isValidEmail(this.signUpForm.value.email)) {
+			alert('Please enter a valid cpu email')
+			return
+		}
+
 		if (
 			this.signUpForm.invalid ||
 			this.signUpForm.get('password')?.value !==
@@ -124,7 +127,6 @@ export class AuthSignUpComponent implements OnInit {
 			}
 
 			this.showAlert = true
-
 			return
 		}
 
